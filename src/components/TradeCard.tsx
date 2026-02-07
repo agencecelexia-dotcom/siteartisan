@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
-import { ChevronDown, Wrench, Waves, TreePine, Zap, ArrowRight } from "lucide-react"
+import { ChevronDown, Wrench, Waves, TreePine, Zap, Truck, ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import StarRating from "@/components/StarRating"
 import { TradeInfo, Artisan, Trade } from "@/types/artisan"
@@ -19,6 +19,7 @@ const tradeIcons: Record<string, React.ReactNode> = {
   Waves: <Waves className="w-7 h-7" />,
   TreePine: <TreePine className="w-7 h-7" />,
   Zap: <Zap className="w-7 h-7" />,
+  Truck: <Truck className="w-7 h-7" />,
 }
 
 const tradeBg: Record<Trade, string> = {
@@ -26,6 +27,7 @@ const tradeBg: Record<Trade, string> = {
   pisciniste: "from-cyan-500 to-cyan-600",
   paysagiste: "from-green-500 to-green-600",
   electricien: "from-amber-500 to-amber-600",
+  demenageur: "from-purple-500 to-purple-600",
 }
 
 const tradeLightBg: Record<Trade, string> = {
@@ -33,6 +35,7 @@ const tradeLightBg: Record<Trade, string> = {
   pisciniste: "bg-cyan-50 hover:bg-cyan-100",
   paysagiste: "bg-green-50 hover:bg-green-100",
   electricien: "bg-amber-50 hover:bg-amber-100",
+  demenageur: "bg-purple-50 hover:bg-purple-100",
 }
 
 export default function TradeCard({ trade, artisans, index }: TradeCardProps) {

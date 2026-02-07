@@ -2,7 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
-import { Users, MapPin, Star, TrendingUp, Plus, ArrowRight, Wrench, Waves, TreePine, Zap } from "lucide-react"
+import { Users, MapPin, Star, TrendingUp, Plus, ArrowRight, Wrench, Waves, TreePine, Zap, Truck } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -15,6 +15,7 @@ const tradeIcons: Record<Trade, React.ReactNode> = {
   pisciniste: <Waves className="w-5 h-5" />,
   paysagiste: <TreePine className="w-5 h-5" />,
   electricien: <Zap className="w-5 h-5" />,
+  demenageur: <Truck className="w-5 h-5" />,
 }
 
 export default function AdminDashboard() {

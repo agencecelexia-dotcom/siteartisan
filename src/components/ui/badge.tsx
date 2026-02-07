@@ -14,6 +14,7 @@ const badgeVariants = cva(
         pisciniste: "border-transparent bg-cyan-100 text-cyan-700",
         paysagiste: "border-transparent bg-green-100 text-green-700",
         electricien: "border-transparent bg-amber-100 text-amber-700",
+        demenageur: "border-transparent bg-purple-100 text-purple-700",
         certified: "border-transparent bg-emerald-100 text-emerald-700",
       },
     },
