@@ -17,19 +17,19 @@ export default function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white border-b-2 border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 bg-gradient-to-br from-primary to-primary-400 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+            <div className="w-9 h-9 bg-gradient-to-br from-primary to-primary-700 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
               <Search className="w-5 h-5 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-heading font-bold text-gray-900 leading-tight">
+              <span className="text-lg font-heading font-bold text-foreground leading-tight">
                 SiteArtisan
               </span>
-              <span className="text-[10px] text-gray-400 leading-tight hidden sm:block">
+              <span className="text-[10px] text-muted-foreground leading-tight hidden sm:block">
                 Annuaire des artisans
               </span>
             </div>
@@ -41,7 +41,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary rounded-lg hover:bg-primary-50 transition-all duration-200"
+                className="px-4 py-2 text-sm font-semibold text-foreground hover:text-primary rounded-lg hover:bg-blue-50 transition-all duration-200"
               >
                 {link.label}
               </Link>
