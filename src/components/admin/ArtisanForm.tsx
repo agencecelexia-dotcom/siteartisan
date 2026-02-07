@@ -2,17 +2,15 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import {
-  Save, Eye, ArrowLeft, Plus, X, Upload,
-  User, Phone, Mail, Globe, MapPin, Calendar,
-  FileText, Briefcase, Award, Shield, Tag
+  Save, Eye, ArrowLeft,
+  User, Phone,
+  FileText, Briefcase, Award, Tag
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
 import { Artisan, Trade, TRADES } from "@/types/artisan"
@@ -23,7 +21,6 @@ interface ArtisanFormProps {
 }
 
 export default function ArtisanForm({ artisan }: ArtisanFormProps) {
-  const router = useRouter()
   const isEditing = !!artisan
 
   const [formData, setFormData] = useState({
@@ -194,7 +191,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
                 placeholder="https://..."
               />
               {formData.profilePhotoUrl && (
-                <img src={formData.profilePhotoUrl} alt="Preview" className="mt-2 w-20 h-20 rounded-xl object-cover" />
+                <img src={formData.profilePhotoUrl} alt="Aperçu de la photo de profil" loading="lazy" className="mt-2 w-20 h-20 rounded-xl object-cover" />
               )}
             </div>
             <div>
@@ -207,7 +204,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
                 placeholder="https://..."
               />
               {formData.coverPhotoUrl && (
-                <img src={formData.coverPhotoUrl} alt="Preview" className="mt-2 w-full h-24 rounded-xl object-cover" />
+                <img src={formData.coverPhotoUrl} alt="Aperçu de la photo de couverture" loading="lazy" className="mt-2 w-full h-24 rounded-xl object-cover" />
               )}
             </div>
           </div>

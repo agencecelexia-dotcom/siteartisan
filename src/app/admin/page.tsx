@@ -8,19 +8,13 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { artisans, getStats } from "@/data/artisans"
 import { TRADES, Trade } from "@/types/artisan"
+import { tradeBadgeVariant } from "@/lib/constants"
 
 const tradeIcons: Record<Trade, React.ReactNode> = {
   plombier: <Wrench className="w-5 h-5" />,
   pisciniste: <Waves className="w-5 h-5" />,
   paysagiste: <TreePine className="w-5 h-5" />,
   electricien: <Zap className="w-5 h-5" />,
-}
-
-const tradeBadgeVariant: Record<Trade, "plombier" | "pisciniste" | "paysagiste" | "electricien"> = {
-  plombier: "plombier",
-  pisciniste: "pisciniste",
-  paysagiste: "paysagiste",
-  electricien: "electricien",
 }
 
 export default function AdminDashboard() {
@@ -161,7 +155,8 @@ export default function AdminDashboard() {
               >
                 <img
                   src={artisan.profilePhoto}
-                  alt={artisan.businessName}
+                  alt={`Logo de ${artisan.businessName}`}
+                  loading="lazy"
                   className="w-10 h-10 rounded-lg object-cover"
                 />
                 <div className="flex-1 min-w-0">

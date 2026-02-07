@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react"
 import Link from "next/link"
-import { Search, Plus, MoreVertical, Eye, Edit, Trash2, CheckCircle, XCircle } from "lucide-react"
+import { Search, Plus, Eye, Edit, Trash2, CheckCircle, XCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -10,21 +10,8 @@ import { Card } from "@/components/ui/card"
 import StarRating from "@/components/StarRating"
 import { artisans } from "@/data/artisans"
 import { Trade, TRADES } from "@/types/artisan"
-import { formatPhone, cn } from "@/lib/utils"
-
-const tradeBadgeVariant: Record<Trade, "plombier" | "pisciniste" | "paysagiste" | "electricien"> = {
-  plombier: "plombier",
-  pisciniste: "pisciniste",
-  paysagiste: "paysagiste",
-  electricien: "electricien",
-}
-
-const tradeLabel: Record<Trade, string> = {
-  plombier: "Plombier",
-  pisciniste: "Pisciniste",
-  paysagiste: "Paysagiste",
-  electricien: "\u00c9lectricien",
-}
+import { cn } from "@/lib/utils"
+import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
 
 export default function AdminArtisansPage() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -122,7 +109,8 @@ export default function AdminArtisansPage() {
                     <div className="flex items-center gap-3">
                       <img
                         src={artisan.profilePhoto}
-                        alt={artisan.businessName}
+                        alt={`Logo de ${artisan.businessName}`}
+                        loading="lazy"
                         className="w-10 h-10 rounded-lg object-cover"
                       />
                       <div className="min-w-0">

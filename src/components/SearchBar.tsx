@@ -24,7 +24,7 @@ export default function SearchBar({ variant = "hero", defaultCity = "", defaultT
     e.preventDefault()
     const params = new URLSearchParams()
     if (city) params.set("city", city)
-    if (trade) params.set("trade", trade)
+    if (trade && trade !== "all") params.set("trade", trade)
     router.push(`/artisans?${params.toString()}`)
   }
 

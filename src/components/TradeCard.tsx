@@ -4,7 +4,6 @@ import React, { useState } from "react"
 import Link from "next/link"
 import { ChevronDown, Wrench, Waves, TreePine, Zap, ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
 import StarRating from "@/components/StarRating"
 import { TradeInfo, Artisan, Trade } from "@/types/artisan"
 import { cn } from "@/lib/utils"
@@ -105,7 +104,8 @@ export default function TradeCard({ trade, artisans, index }: TradeCardProps) {
                     >
                       <img
                         src={artisan.profilePhoto}
-                        alt={artisan.businessName}
+                        alt={`Logo de ${artisan.businessName}`}
+                        loading="lazy"
                         className="w-12 h-12 rounded-xl object-cover shadow-sm"
                       />
                       <div className="flex-1 min-w-0">

@@ -6,31 +6,18 @@ import { notFound } from "next/navigation"
 import { motion } from "framer-motion"
 import {
   Phone, Mail, Globe, MapPin, Calendar, Shield, ArrowLeft,
-  ExternalLink, ChevronRight, Award, Briefcase, Camera,
-  Facebook, Instagram, Linkedin, ShieldCheck, CheckCircle2
+  ExternalLink, Award, Briefcase, Camera,
+  ShieldCheck, CheckCircle2
 } from "lucide-react"
+import { Facebook, Instagram, Linkedin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import StarRating from "@/components/StarRating"
 import { getArtisanById } from "@/data/artisans"
-import { TRADES, Trade } from "@/types/artisan"
-import { formatPhone, cn } from "@/lib/utils"
-
-const tradeBadgeVariant: Record<Trade, "plombier" | "pisciniste" | "paysagiste" | "electricien"> = {
-  plombier: "plombier",
-  pisciniste: "pisciniste",
-  paysagiste: "paysagiste",
-  electricien: "electricien",
-}
-
-const tradeLabel: Record<Trade, string> = {
-  plombier: "Plombier",
-  pisciniste: "Pisciniste",
-  paysagiste: "Paysagiste",
-  electricien: "\u00c9lectricien",
-}
+import { formatPhone } from "@/lib/utils"
+import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
 
 function ArtisanDetailClient({ id }: { id: string }) {
   const artisan = getArtisanById(id)
@@ -39,10 +26,11 @@ function ArtisanDetailClient({ id }: { id: string }) {
   return (
     <div className="min-h-screen bg-gray-50/30">
       {/* Cover Image */}
-      <div className="relative h-64 md:h-80 overflow-hidden bg-gray-200">
+      <div className="relative h-48 md:h-80 overflow-hidden bg-gray-200">
         <img
           src={artisan.coverPhoto}
-          alt={artisan.businessName}
+          alt={`Photo de couverture de ${artisan.businessName} - ${artisan.trades.map(t => tradeLabel[t]).join(', ')} à ${artisan.city}`}
+          loading="lazy"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -75,7 +63,8 @@ function ArtisanDetailClient({ id }: { id: string }) {
                     <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg border-2 border-white shrink-0">
                       <img
                         src={artisan.profilePhoto}
-                        alt={artisan.businessName}
+                        alt={`Logo de ${artisan.businessName}`}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -214,6 +203,7 @@ function ArtisanDetailClient({ id }: { id: string }) {
                           <img
                             src={item.imageUrl}
                             alt={item.description}
+                            loading="lazy"
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">

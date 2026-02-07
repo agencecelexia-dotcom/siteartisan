@@ -2,33 +2,18 @@
 
 import React from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { MapPin, Phone, ArrowRight, ShieldCheck } from "lucide-react"
 import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import StarRating from "@/components/StarRating"
-import { Artisan, Trade } from "@/types/artisan"
+import { Artisan } from "@/types/artisan"
 import { formatPhone } from "@/lib/utils"
+import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
 
 interface ArtisanCardProps {
   artisan: Artisan
   index?: number
-}
-
-const tradeBadgeVariant: Record<Trade, "plombier" | "pisciniste" | "paysagiste" | "electricien"> = {
-  plombier: "plombier",
-  pisciniste: "pisciniste",
-  paysagiste: "paysagiste",
-  electricien: "electricien",
-}
-
-const tradeLabel: Record<Trade, string> = {
-  plombier: "Plombier",
-  pisciniste: "Pisciniste",
-  paysagiste: "Paysagiste",
-  electricien: "\u00c9lectricien",
 }
 
 export default function ArtisanCard({ artisan, index = 0 }: ArtisanCardProps) {
@@ -44,8 +29,9 @@ export default function ArtisanCard({ artisan, index = 0 }: ArtisanCardProps) {
           <div className="relative h-48 overflow-hidden bg-gray-100">
             <img
               src={artisan.coverPhoto || artisan.profilePhoto}
-              alt={artisan.businessName}
+              alt={`Photo de couverture de ${artisan.businessName} - ${artisan.trades.map(t => tradeLabel[t]).join(', ')} à ${artisan.city}`}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
@@ -72,8 +58,9 @@ export default function ArtisanCard({ artisan, index = 0 }: ArtisanCardProps) {
               <div className="w-14 h-14 rounded-xl border-3 border-white shadow-lg overflow-hidden bg-white">
                 <img
                   src={artisan.profilePhoto}
-                  alt={artisan.businessName}
+                  alt={`Logo ${artisan.businessName}`}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
