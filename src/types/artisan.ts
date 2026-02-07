@@ -1,4 +1,4 @@
-export type Trade = "plombier" | "pisciniste" | "paysagiste" | "electricien"
+export type Trade = "plombier" | "pisciniste" | "paysagiste" | "electricien" | "demenageur"
 
 export interface PortfolioImage {
   imageUrl: string
@@ -102,5 +102,14 @@ export const TRADES: TradeInfo[] = [
     color: "bg-trade-electricien",
     colorHex: "#F59E0B",
     description: "Installation et mise aux normes de vos \u00e9quipements \u00e9lectriques",
+  },
+  {
+    id: "demenageur",
+    name: "D\u00e9m\u00e9nageur",
+    icon: "Truck",
+    emoji: "\uD83D\uDE9A",
+    color: "bg-trade-demenageur",
+    colorHex: "#8B5CF6",
+    description: "D\u00e9m\u00e9nagement professionnel et garde-meubles",
   },
 ]

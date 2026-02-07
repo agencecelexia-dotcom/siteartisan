@@ -73,6 +73,7 @@ const config: Config = {
           pisciniste: "#0891B2",
           paysagiste: "#15803D",
           electricien: "#EA580C",
+          demenageur: "#8B5CF6",
         },
       },
       fontFamily: {
