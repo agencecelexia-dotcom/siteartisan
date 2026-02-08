@@ -12,7 +12,7 @@ import { artisans as mockArtisans } from "@/data/artisans"
 import { Trade, TRADES } from "@/types/artisan"
 import { cn } from "@/lib/utils"
 import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
-import { isSupabaseConfigured } from "@/lib/supabase"
+import { isSupabaseConfigured, fetchArtisans } from "@/lib/supabase"
 
 export default function AdminArtisansPage() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -20,23 +20,36 @@ export default function AdminArtisansPage() {
   const [filterStatus, setFilterStatus] = useState<string>("")
   const [supabaseConfigured, setSupabaseConfigured] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [artisans, setArtisans] = useState(mockArtisans)
 
   useEffect(() => {
-    setSupabaseConfigured(isSupabaseConfigured())
-    setIsLoading(false)
-  }, [])
+    const loadArtisans = async () => {
+      setIsLoading(true)
+      const configured = isSupabaseConfigured()
+      setSupabaseConfigured(configured)
 
-  const artisans = mockArtisans // Using mock data as fallback
-  // TODO: Replace with Supabase data when configured
-  // import { fetchArtisans } from "@/lib/supabase"
-  // const [artisans, setArtisans] = useState<Artisan[]>([])
-  // useEffect(() => {
-  //   if (supabaseConfigured) {
-  //     fetchArtisans().then(setArtisans)
-  //   } else {
-  //     setArtisans(mockArtisans)
-  //   }
-  // }, [supabaseConfigured])
+      if (configured) {
+        try {
+          const data = await fetchArtisans()
+          if (data && data.length > 0) {
+            // Convert Supabase data to mock artisan format
+            setArtisans(data as any)
+          } else {
+            // Use mock data if no Supabase data found
+            setArtisans(mockArtisans)
+          }
+        } catch (error) {
+          console.error("Error fetching artisans from Supabase:", error)
+          setArtisans(mockArtisans)
+        }
+      } else {
+        setArtisans(mockArtisans)
+      }
+      setIsLoading(false)
+    }
+
+    loadArtisans()
+  }, [])
 
   const filteredArtisans = useMemo(() => {
     return artisans.filter((a) => {

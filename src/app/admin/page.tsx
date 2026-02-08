@@ -1,14 +1,15 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
-import { Users, MapPin, Star, TrendingUp, Plus, ArrowRight, Wrench, Waves, TreePine, Zap, Truck } from "lucide-react"
+import { Users, MapPin, Star, TrendingUp, Plus, ArrowRight, Wrench, Waves, TreePine, Zap, Truck, AlertCircle, Upload } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { artisans, getStats } from "@/data/artisans"
 import { TRADES, Trade } from "@/types/artisan"
 import { tradeBadgeVariant } from "@/lib/constants"
+import { isSupabaseConfigured } from "@/lib/supabase"
 
 const tradeIcons: Record<Trade, React.ReactNode> = {
   plombier: <Wrench className="w-5 h-5" />,
@@ -19,6 +20,12 @@ const tradeIcons: Record<Trade, React.ReactNode> = {
 }
 
 export default function AdminDashboard() {
+  const [supabaseConfigured, setSupabaseConfigured] = useState(false)
+
+  useEffect(() => {
+    setSupabaseConfigured(isSupabaseConfigured())
+  }, [])
+
   const stats = getStats()
   const activeArtisans = artisans.filter((a) => a.status === "active")
   const recentArtisans = [...activeArtisans].sort(
@@ -45,6 +52,27 @@ export default function AdminDashboard() {
           </Button>
         </Link>
       </div>
+
+      {/* Import Banner */}
+      {supabaseConfigured && (
+        <Card className="bg-blue-50 border-blue-200">
+          <CardContent className="p-6 flex items-start gap-4">
+            <Upload className="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <h3 className="font-semibold text-blue-900 mb-1">Importer les données Supabase</h3>
+              <p className="text-sm text-blue-800 mb-4">
+                Vous pouvez maintenant importer les 30 artisans existants dans votre base de données Supabase. Cela rendra la gestion plus efficace.
+              </p>
+              <Link href="/admin/import">
+                <Button size="sm" className="gap-2">
+                  <Upload className="w-4 h-4" />
+                  Importer les artisans
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
