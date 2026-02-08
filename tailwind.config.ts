@@ -89,8 +89,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        heading: ["var(--font-lora)", "Georgia", "serif"],
+        sans: ["var(--font-nunito)", "system-ui", "sans-serif"],
+        heading: ["var(--font-nunito)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
