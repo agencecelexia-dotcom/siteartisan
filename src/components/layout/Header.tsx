@@ -14,7 +14,6 @@ export default function Header() {
     { href: "/artisans", label: "Artisans" },
     { href: "/carte", label: "Carte" },
     { href: "/a-propos", label: "\u00c0 propos" },
-    { href: "/ajouter-mon-entreprise", label: "Ajouter mon entreprise" },
   ]
 
   return (
@@ -49,8 +48,13 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center">
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-2">
+            <Link href="/admin">
+              <Button variant="outline" size="sm">
+                Admin
+              </Button>
+            </Link>
             <Link href="/ajouter-mon-entreprise">
               <Button size="sm" className="gap-2">
                 <Plus className="w-4 h-4" />
@@ -92,7 +96,12 @@ export default function Header() {
                 </Link>
               ))}
               <div className="pt-3 flex flex-col gap-2">
-                <Link href="/ajouter-mon-entreprise" onClick={() => setIsMenuOpen(false)}>
+                <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="w-full">
+                  <Button variant="outline" className="w-full">
+                    Administration
+                  </Button>
+                </Link>
+                <Link href="/ajouter-mon-entreprise" onClick={() => setIsMenuOpen(false)} className="w-full">
                   <Button className="w-full gap-2">
                     <Plus className="w-4 h-4" />
                     Ajouter mon entreprise
