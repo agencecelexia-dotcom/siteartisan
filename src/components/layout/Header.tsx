@@ -14,7 +14,7 @@ export default function Header() {
     { href: "/artisans", label: "Artisans" },
     { href: "/carte", label: "Carte" },
     { href: "/a-propos", label: "\u00c0 propos" },
-    { href: "/contact", label: "Contact" },
+    { href: "/ajouter-mon-entreprise", label: "Ajouter mon entreprise" },
   ]
 
   return (
@@ -56,7 +56,7 @@ export default function Header() {
                 Admin
               </Button>
             </Link>
-            <Link href="/contact">
+            <Link href="/ajouter-mon-entreprise">
               <Button size="sm" className="gap-2">
                 <Plus className="w-4 h-4" />
                 Ajouter mon entreprise
@@ -102,7 +102,7 @@ export default function Header() {
                     Administration
                   </Button>
                 </Link>
-                <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
+                <Link href="/ajouter-mon-entreprise" onClick={() => setIsMenuOpen(false)}>
                   <Button className="w-full gap-2">
                     <Plus className="w-4 h-4" />
                     Ajouter mon entreprise

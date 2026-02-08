@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
@@ -32,32 +32,9 @@ export default function Footer() {
               {[
                 { href: "/", label: "Accueil" },
                 { href: "/artisans", label: "Tous les artisans" },
+                { href: "/carte", label: "Carte des artisans" },
                 { href: "/a-propos", label: "\u00c0 propos" },
-                { href: "/contact", label: "Contact" },
-              ].map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* M\u00e9tiers */}
-          <div>
-            <h3 className="text-sm font-heading font-semibold text-white uppercase tracking-wider mb-4">
-              M&eacute;tiers
-            </h3>
-            <ul className="space-y-3">
-              {[
-                { href: "/artisans?trade=plombier", label: "Plombiers" },
-                { href: "/artisans?trade=pisciniste", label: "Piscinistes" },
-                { href: "/artisans?trade=paysagiste", label: "Paysagistes" },
-                { href: "/artisans?trade=electricien", label: "\u00c9lectriciens" },
+                { href: "/ajouter-mon-entreprise", label: "Ajouter mon entreprise" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -98,14 +75,14 @@ export default function Footer() {
           <p className="text-xs text-gray-500">
             &copy; {new Date().getFullYear()} SiteArtisan. Tous droits r&eacute;serv&eacute;s.
           </p>
-          <div className="flex gap-6">
-            <Link href="#" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
+          <div className="flex flex-wrap gap-4 sm:gap-6">
+            <Link href="/mentions-legales" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
               Mentions l&eacute;gales
             </Link>
-            <Link href="#" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
+            <Link href="/politique-de-confidentialite" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
               Politique de confidentialit&eacute;
             </Link>
-            <Link href="#" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
+            <Link href="/cgu" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
               CGU
             </Link>
           </div>

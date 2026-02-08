@@ -238,6 +238,72 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* SEO - FAQ Section */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900">
+              Comment trouver un artisan de confiance ?
+            </h2>
+            <p className="text-gray-500 mt-3 max-w-2xl mx-auto">
+              Les questions les plus fr&eacute;quentes sur la recherche d&apos;artisans en France
+            </p>
+          </motion.div>
+
+          <div className="space-y-6">
+            {[
+              {
+                question: "Comment trouver un bon artisan pr\u00e8s de chez moi ?",
+                answer: "Utilisez SiteArtisan pour rechercher par m\u00e9tier et par ville. Chaque artisan dispose d\u2019une fiche compl\u00e8te avec ses certifications, avis clients et zone d\u2019intervention. Vous pouvez aussi explorer la carte interactive pour d\u00e9couvrir les artisans autour de vous.",
+              },
+              {
+                question: "Comment choisir entre un plombier, \u00e9lectricien ou paysagiste ?",
+                answer: "Comparez les fiches artisans : v\u00e9rifiez les certifications (RGE, Qualibat, Qualifelec), lisez les avis clients, et regardez le portfolio de r\u00e9alisations. Un artisan certifi\u00e9 avec de bons avis est g\u00e9n\u00e9ralement un choix s\u00fbr.",
+              },
+              {
+                question: "L\u2019annuaire SiteArtisan est-il vraiment gratuit ?",
+                answer: "Oui, SiteArtisan est 100% gratuit pour les particuliers comme pour les artisans. Contrairement aux annuaires traditionnels, nous ne faisons pas payer la visibilit\u00e9. Le classement est bas\u00e9 sur la qualit\u00e9 r\u00e9elle, pas sur un budget publicitaire.",
+              },
+              {
+                question: "Quelle diff\u00e9rence entre un annuaire gratuit et payant ?",
+                answer: "Les annuaires payants font payer les artisans pour appara\u00eetre en t\u00eate de liste. Cela ne garantit pas la qualit\u00e9. SiteArtisan est gratuit et classe les artisans selon leurs avis, certifications et qualit\u00e9 de service r\u00e9elle.",
+              },
+              {
+                question: "Comment r\u00e9f\u00e9rencer mon entreprise gratuitement sur Google ?",
+                answer: "En vous inscrivant sur SiteArtisan, votre fiche artisan est automatiquement index\u00e9e par Google. Notre site est optimis\u00e9 SEO : chaque fiche g\u00e9n\u00e8re une page d\u00e9di\u00e9e avec votre nom, m\u00e9tier, ville et avis. C\u2019est du r\u00e9f\u00e9rencement naturel gratuit.",
+              },
+            ].map((faq, i) => (
+              <motion.div
+                key={faq.question}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="p-6 md:p-8 rounded-2xl bg-white border border-gray-100 shadow-sm"
+              >
+                <h3 className="text-lg font-heading font-bold text-gray-900 mb-3">{faq.question}</h3>
+                <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link href="/a-propos">
+              <Button variant="outline" size="lg" className="gap-2">
+                En savoir plus sur SiteArtisan
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -258,13 +324,13 @@ export default function HomePage() {
                 Vous &ecirc;tes artisan ?
               </h2>
               <p className="text-blue-100 mt-4 max-w-xl mx-auto text-lg">
-                Rejoignez notre annuaire et gagnez en visibilit&eacute;.
-                Inscrivez-vous gratuitement et recevez des demandes de devis.
+                Rejoignez notre annuaire gratuitement et gagnez en visibilit&eacute;.
+                Votre fiche sera index&eacute;e sur Google et visible par des milliers de particuliers.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact">
+                <Link href="/ajouter-mon-entreprise">
                   <Button size="xl" className="bg-secondary hover:bg-secondary-600 text-white gap-2 shadow-lg">
-                    Ajouter mon entreprise
+                    Ajouter mon entreprise gratuitement
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </Link>

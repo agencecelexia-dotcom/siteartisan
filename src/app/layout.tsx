@@ -12,9 +12,25 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-  title: "SiteArtisan - Trouvez les meilleurs artisans pr\u00e8s de chez vous",
-  description: "Annuaire professionnel d'artisans certifi\u00e9s : plombiers, piscinistes, paysagistes, \u00e9lectriciens. Trouvez et contactez les meilleurs professionnels pr\u00e8s de chez vous.",
-  keywords: "artisan, plombier, pisciniste, paysagiste, \u00e9lectricien, annuaire, France",
+  title: "SiteArtisan - Annuaire gratuit d'artisans certifi\u00e9s en France",
+  description: "Trouvez les meilleurs artisans pr\u00e8s de chez vous gratuitement. Plombiers, piscinistes, paysagistes, \u00e9lectriciens, d\u00e9m\u00e9nageurs certifi\u00e9s avec avis clients v\u00e9rifi\u00e9s. Annuaire 100% gratuit.",
+  keywords: "artisan, plombier, pisciniste, paysagiste, \u00e9lectricien, d\u00e9m\u00e9nageur, annuaire gratuit, artisan pr\u00e8s de chez moi, France",
+  openGraph: {
+    title: "SiteArtisan - Annuaire gratuit d'artisans certifi\u00e9s",
+    description: "Trouvez les meilleurs artisans pr\u00e8s de chez vous. 100% gratuit, avis v\u00e9rifi\u00e9s, artisans certifi\u00e9s.",
+    type: "website",
+    locale: "fr_FR",
+    siteName: "SiteArtisan",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SiteArtisan - Annuaire gratuit d'artisans",
+    description: "Trouvez les meilleurs artisans pr\u00e8s de chez vous. 100% gratuit.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
