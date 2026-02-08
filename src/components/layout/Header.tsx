@@ -50,12 +50,7 @@ export default function Header() {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:flex items-center gap-3">
-            <Link href="/admin">
-              <Button variant="ghost" size="sm" className="text-gray-500">
-                Admin
-              </Button>
-            </Link>
+          <div className="hidden md:flex items-center">
             <Link href="/ajouter-mon-entreprise">
               <Button size="sm" className="gap-2">
                 <Plus className="w-4 h-4" />
@@ -97,11 +92,6 @@ export default function Header() {
                 </Link>
               ))}
               <div className="pt-3 flex flex-col gap-2">
-                <Link href="/admin" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" className="w-full">
-                    Administration
-                  </Button>
-                </Link>
                 <Link href="/ajouter-mon-entreprise" onClick={() => setIsMenuOpen(false)}>
                   <Button className="w-full gap-2">
                     <Plus className="w-4 h-4" />

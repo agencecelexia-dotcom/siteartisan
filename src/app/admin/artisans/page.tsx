@@ -1,22 +1,42 @@
 "use client"
 
-import React, { useState, useMemo } from "react"
+import React, { useState, useMemo, useEffect } from "react"
 import Link from "next/link"
-import { Search, Plus, Eye, Edit, Trash2, CheckCircle, XCircle } from "lucide-react"
+import { Search, Plus, Eye, Edit, Trash2, CheckCircle, XCircle, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import StarRating from "@/components/StarRating"
-import { artisans } from "@/data/artisans"
+import { artisans as mockArtisans } from "@/data/artisans"
 import { Trade, TRADES } from "@/types/artisan"
 import { cn } from "@/lib/utils"
 import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
+import { isSupabaseConfigured } from "@/lib/supabase"
 
 export default function AdminArtisansPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [filterTrade, setFilterTrade] = useState<string>("")
   const [filterStatus, setFilterStatus] = useState<string>("")
+  const [supabaseConfigured, setSupabaseConfigured] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setSupabaseConfigured(isSupabaseConfigured())
+    setIsLoading(false)
+  }, [])
+
+  const artisans = mockArtisans // Using mock data as fallback
+  // TODO: Replace with Supabase data when configured
+  // import { fetchArtisans } from "@/lib/supabase"
+  // const [artisans, setArtisans] = useState<Artisan[]>([])
+  // useEffect(() => {
+  //   if (supabaseConfigured) {
+  //     fetchArtisans().then(setArtisans)
+  //   } else {
+  //     setArtisans(mockArtisans)
+  //   }
+  // }, [supabaseConfigured])
 
   const filteredArtisans = useMemo(() => {
     return artisans.filter((a) => {
@@ -36,13 +56,43 @@ export default function AdminArtisansPage() {
     })
   }, [searchQuery, filterTrade, filterStatus])
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
+      {/* Status Banner */}
+      {!supabaseConfigured && (
+        <Card className="bg-amber-50 border-amber-200 p-4 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <p className="font-medium text-amber-900">Supabase non configuré</p>
+            <p className="text-sm text-amber-800 mt-1">
+              Actuellement en mode démo avec données locales. Pour activer Supabase:
+              <ol className="list-decimal list-inside mt-2 ml-1 space-y-1">
+                <li>Lisez le guide <code className="bg-white px-1 rounded text-xs">SUPABASE_SETUP.md</code></li>
+                <li>Créez un projet Supabase</li>
+                <li>Mettez à jour <code className="bg-white px-1 rounded text-xs">.env.local</code></li>
+                <li>Redémarrez le serveur</li>
+              </ol>
+            </p>
+          </div>
+        </Card>
+      )}
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-heading font-bold text-gray-900">Gestion des artisans</h1>
-          <p className="text-gray-500 mt-1">{artisans.length} artisans au total</p>
+          <p className="text-gray-500 mt-1">
+            {artisans.length} artisans au total
+            {!supabaseConfigured && " (mode démo)"}
+          </p>
         </div>
         <Link href="/admin/artisans/new">
           <Button className="gap-2">

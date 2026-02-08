@@ -10,19 +10,31 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
-const ADMIN_PASSWORD = "celexia2024"
-
 function AdminLogin({ onLogin }: { onLogin: () => void }) {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (password === ADMIN_PASSWORD) {
-      localStorage.setItem("admin_auth", "true")
-      onLogin()
-    } else {
-      setError("Mot de passe incorrect")
+    setIsLoading(true)
+
+    try {
+      // Check against environment variable password
+      const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "admin123"
+
+      if (password === adminPassword) {
+        localStorage.setItem("admin_auth", "true")
+        localStorage.setItem("admin_auth_time", Date.now().toString())
+        onLogin()
+      } else {
+        setError("Mot de passe incorrect")
+      }
+    } catch (err) {
+      setError("Erreur lors de la connexion")
+      console.error("Login error:", err)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -50,8 +62,13 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
             />
             {error && <p className="text-sm text-red-500 mt-2">{error}</p>}
           </div>
-          <Button type="submit" className="w-full h-12" size="lg">
-            Se connecter
+          <Button
+            type="submit"
+            className="w-full h-12"
+            size="lg"
+            disabled={isLoading}
+          >
+            {isLoading ? "Connexion en cours..." : "Se connecter"}
           </Button>
         </form>
 

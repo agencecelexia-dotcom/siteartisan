@@ -304,6 +304,86 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* SEO - Questions supplémentaires pour artisans et utilisateurs */}
+      <section className="py-16 md:py-24 bg-gray-50/50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900">
+              Toutes vos questions sur les artisans et SiteArtisan
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Questions Utilisateurs */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-4"
+            >
+              <h3 className="text-xl font-heading font-bold text-gray-900 mb-6">
+                ❓ Vous cherchez un artisan ?
+              </h3>
+              {[
+                { q: "Quels sont les labels et certifications important pour un artisan ?", a: "RGE (éco-responsable), Qualibat (bâtiment), Qualifelec (électricité), IRVE (bornes recharge), UNEP (paysage) garantissent la qualité et l'assurance." },
+                { q: "Comment vérifier les avis clients d'un artisan ?", a: "Sur SiteArtisan, chaque avis est authentique. Les évaluations doivent être justifiées et vérifiées pour garantir leur fiabilité." },
+                { q: "Un artisan certifié coûte-t-il forcément plus cher ?", a: "Non, la certification garantit la qualité et l'assurance, mais les prix restent compétitifs. Comparez plusieurs offres sur SiteArtisan." },
+                { q: "Comment trouver un artisan d'urgence le dimanche ?", a: "Utilisez SiteArtisan pour filtrer les artisans avec horaires spéciaux. Beaucoup proposent des interventions d'urgence 24/7." },
+                { q: "Comment être sûr qu'un artisan est assuré ?", a: "Demandez sa RC Pro (responsabilité civile) et sa garantie décennale. Tous les artisans de SiteArtisan sont vérifiés sur ce point." },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="p-4 rounded-lg bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <p className="font-medium text-gray-900 text-sm mb-2">{item.q}</p>
+                  <p className="text-gray-600 text-sm">{item.a}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Questions Artisans */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-4"
+            >
+              <h3 className="text-xl font-heading font-bold text-gray-900 mb-6">
+                🔨 Vous êtes artisan ?
+              </h3>
+              {[
+                { q: "Comment attirer plus de clients sur SiteArtisan ?", a: "Une fiche complète avec photos de qualité, avis positifs et certifications boost votre visibilité. Le classement est basé sur la qualité, pas sur le paiement." },
+                { q: "SiteArtisan aide-t-il vraiment à trouver des clients ?", a: "Oui ! Chaque fiche est indexée sur Google et visible par des milliers de particuliers. Vous reçoivent des demandes de devis qualifiées." },
+                { q: "Comment faire pour être mieux classé que les concurrents ?", a: "Augmentez vos avis clients, complétez votre portfolio, maintenez vos certifications à jour. Les meilleurs artisans sont naturellement mieux classés." },
+                { q: "Puis-je gérer ma fiche moi-même sur SiteArtisan ?", a: "Oui, après validation initiale. Vous pouvez ajouter des photos, mettre à jour votre zone d'intervention et répondre aux avis clients directement." },
+                { q: "Combien ça coûte d'être sur SiteArtisan ?", a: "C'est gratuit ! Pas de frais d'inscription, pas d'abonnement mensuel, pas de coûts cachés. SiteArtisan croit en la transparence." },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="p-4 rounded-lg bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <p className="font-medium text-gray-900 text-sm mb-2">{item.q}</p>
+                  <p className="text-gray-600 text-sm">{item.a}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
