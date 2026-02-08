@@ -71,21 +71,15 @@ export default function SearchBar({ variant = "hero", defaultCity = "", defaultT
             placeholder="Votre ville..."
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="w-full h-13 pl-12 pr-4 text-base rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
-            list="cities"
+            className="w-full h-14 pl-12 pr-4 text-base text-gray-900 placeholder:text-gray-400 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
           />
-          <datalist id="cities">
-            {getAllCities().map((c) => (
-              <option key={c} value={c} />
-            ))}
-          </datalist>
         </div>
 
         {/* Trade */}
         <div className="relative flex-1">
           <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 z-10 pointer-events-none" />
           <Select value={trade} onValueChange={setTrade}>
-            <SelectTrigger className="h-13 pl-12 text-base border-gray-200 rounded-xl">
+            <SelectTrigger className="h-14 pl-12 text-base border-gray-200 rounded-xl">
               <SelectValue placeholder="Choisir un m&eacute;tier" />
             </SelectTrigger>
             <SelectContent>
