@@ -1,31 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 99%;
-    --foreground: 15 30% 12%;
+    --background: 0 0% 100%;
+    --foreground: 220 13% 13%;
     --card: 0 0% 100%;
-    --card-foreground: 15 30% 12%;
+    --card-foreground: 220 13% 13%;
     --popover: 0 0% 100%;
-    --popover-foreground: 15 30% 12%;
-    --primary: 209 89% 51%;
+    --popover-foreground: 220 13% 13%;
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
     --secondary: 25 95% 53%;
     --secondary-foreground: 0 0% 100%;
     --accent: 8 86% 54%;
     --accent-foreground: 0 0% 100%;
-    --muted: 0 0% 60%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 30 5% 95%;
+    --muted-foreground: 30 6% 45%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 88%;
-    --input: 0 0% 95%;
-    --ring: 209 89% 51%;
-    --radius: 0.75rem;
+    --border: 30 5% 90%;
+    --input: 30 5% 96%;
+    --ring: 221 83% 53%;
+    --radius: 1rem;
   }
 }
 
@@ -46,10 +44,10 @@
     text-wrap: balance;
   }
   .gradient-primary {
-    @apply bg-gradient-to-r from-primary to-blue-600;
+    @apply bg-gradient-to-r from-primary-500 to-primary-600;
   }
   .gradient-hero {
-    background: linear-gradient(135deg, #0E5AA8 0%, #1472D2 50%, #2B7FD8 100%);
+    background: linear-gradient(135deg, #1D4ED8 0%, #3B82F6 50%, #60A5FA 100%);
   }
 }
 
@@ -63,12 +61,12 @@ html {
   width: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: #f0f0f0;
+  background: #F5F5F4;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1472D2;
+  background: #3B82F6;
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0E5AA8;
+  background: #2563EB;
 }

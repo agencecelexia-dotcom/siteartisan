@@ -37,16 +37,16 @@ export default function HomePage() {
               Artisans v&eacute;rifi&eacute;s et certifi&eacute;s
             </span>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold leading-tight tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-semibold leading-tight tracking-tight">
               Trouvez les meilleurs
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-orange-300">
                 artisans
               </span>{" "}
               pr&egrave;s de chez vous
             </h1>
 
-            <p className="text-lg md:text-xl text-blue-100 mt-6 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-white/90 mt-8 max-w-2xl mx-auto leading-relaxed">
               Plombiers, piscinistes, paysagistes, &eacute;lectriciens...
               D&eacute;couvrez des professionnels de confiance, certifi&eacute;s et recommand&eacute;s.
             </p>
