@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge"
 import { isSupabaseConfigured, fetchAllArtisans } from "@/lib/supabase"
 import { fetchAnalyticsSummary, type ArtisanEventCount } from "@/lib/analytics"
 import { artisans as mockArtisans } from "@/data/artisans"
-import { getArtisanUrl } from "@/lib/utils"
+import { getAdminEditUrl } from "@/lib/utils"
 import type { Artisan } from "@/types/artisan"
 
 type Period = "7d" | "30d" | "all"
@@ -84,29 +84,42 @@ export default function AdminAnalyticsPage() {
     (totals["website_click"] || 0) +
     (totals["quote_click"] || 0)
 
-  // Build per-artisan stats
+  // Build per-artisan stats, merging duplicates by businessName
   const artisanMap = new Map(artisans.map((a) => [a.id, a]))
-  const perArtisan: Record<string, Record<string, number>> = {}
+
+  // Group analytics by businessName to merge mock + Supabase IDs
+  const byName: Record<string, { artisan: Artisan | undefined; ids: string[]; events: Record<string, number> }> = {}
   for (const row of summary) {
-    if (!perArtisan[row.artisan_id]) perArtisan[row.artisan_id] = {}
-    perArtisan[row.artisan_id][row.event_type] = row.count
+    const art = artisanMap.get(row.artisan_id)
+    const key = art?.businessName || row.artisan_id
+    if (!byName[key]) {
+      byName[key] = { artisan: art, ids: [], events: {} }
+    }
+    if (!byName[key].ids.includes(row.artisan_id)) {
+      byName[key].ids.push(row.artisan_id)
+    }
+    if (!byName[key].artisan && art) {
+      byName[key].artisan = art
+    }
+    byName[key].events[row.event_type] = (byName[key].events[row.event_type] || 0) + row.count
   }
 
   // Sort artisans by total views desc
-  const sortedArtisans = Object.entries(perArtisan)
-    .map(([id, events]) => ({
-      id,
-      artisan: artisanMap.get(id),
-      views: events["view"] || 0,
-      phoneClicks: events["phone_click"] || 0,
-      emailClicks: events["email_click"] || 0,
-      websiteClicks: events["website_click"] || 0,
-      quoteClicks: events["quote_click"] || 0,
+  const sortedArtisans = Object.entries(byName)
+    .map(([name, data]) => ({
+      name,
+      id: data.ids[0],
+      artisan: data.artisan,
+      views: data.events["view"] || 0,
+      phoneClicks: data.events["phone_click"] || 0,
+      emailClicks: data.events["email_click"] || 0,
+      websiteClicks: data.events["website_click"] || 0,
+      quoteClicks: data.events["quote_click"] || 0,
       totalClicks:
-        (events["phone_click"] || 0) +
-        (events["email_click"] || 0) +
-        (events["website_click"] || 0) +
-        (events["quote_click"] || 0),
+        (data.events["phone_click"] || 0) +
+        (data.events["email_click"] || 0) +
+        (data.events["website_click"] || 0) +
+        (data.events["quote_click"] || 0),
     }))
     .sort((a, b) => b.views - a.views)
 
@@ -322,7 +335,7 @@ export default function AdminAnalyticsPage() {
                               </Badge>
                             </td>
                             <td className="text-right py-3 px-2">
-                              <Link href={getArtisanUrl(row.id)}>
+                              <Link href={getAdminEditUrl(row.id)}>
                                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                                   <ArrowRight className="w-4 h-4" />
                                 </Button>
