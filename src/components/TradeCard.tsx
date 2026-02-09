@@ -6,7 +6,7 @@ import { ChevronDown, Wrench, Waves, TreePine, Zap, Truck, ArrowRight } from "lu
 import { motion, AnimatePresence } from "framer-motion"
 import StarRating from "@/components/StarRating"
 import { TradeInfo, Artisan, Trade } from "@/types/artisan"
-import { cn } from "@/lib/utils"
+import { cn, getArtisanUrl } from "@/lib/utils"
 
 interface TradeCardProps {
   trade: TradeInfo
@@ -99,7 +99,7 @@ export default function TradeCard({ trade, artisans, index }: TradeCardProps) {
                   artisans.map((artisan) => (
                     <Link
                       key={artisan.id}
-                      href={`/artisan/${artisan.id}`}
+                      href={getArtisanUrl(artisan.id)}
                       className={cn(
                         "flex items-center gap-4 p-4 rounded-xl transition-all duration-200 group/item",
                         tradeLightBg[trade.id]

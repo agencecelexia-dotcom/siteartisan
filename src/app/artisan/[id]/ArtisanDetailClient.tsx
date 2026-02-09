@@ -19,6 +19,7 @@ import { formatPhone } from "@/lib/utils"
 import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
 import { isSupabaseConfigured, fetchArtisanById } from "@/lib/supabase"
 import { trackEvent } from "@/lib/analytics"
+import Breadcrumbs from "@/components/Breadcrumbs"
 import type { Artisan } from "@/types/artisan"
 
 export default function ArtisanDetailClient({ id }: { id: string }) {
@@ -77,6 +78,16 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
 
   return (
     <div className="min-h-screen bg-gray-50/30">
+      {/* Breadcrumbs */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <Breadcrumbs items={[
+          { label: "Accueil", href: "/" },
+          { label: "Artisans", href: "/artisans" },
+          { label: tradeLabel[artisan.trades[0]], href: `/artisans?trade=${artisan.trades[0]}` },
+          { label: artisan.businessName },
+        ]} />
+      </div>
+
       {/* Cover Image */}
       <div className="relative h-40 sm:h-56 md:h-80 overflow-hidden bg-gray-200">
         <img
@@ -180,13 +191,13 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
 
                   {artisan.specialties && (
                     <div className="mt-6">
-                      <h4 className="text-sm font-semibold text-gray-700 mb-2">Sp&eacute;cialit&eacute;s</h4>
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">Sp&eacute;cialit&eacute;s</h3>
                       <p className="text-sm text-gray-500">{artisan.specialties}</p>
                     </div>
                   )}
 
                   <div className="mt-6">
-                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Zone d&apos;intervention</h4>
+                    <h3 className="text-sm font-semibold text-gray-700 mb-2">Zone d&apos;intervention</h3>
                     <div className="flex flex-wrap gap-2">
                       {artisan.serviceArea.map((area) => (
                         <Badge key={area} variant="secondary" className="text-xs">
@@ -284,7 +295,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
                 <CardContent className="space-y-6">
                   {artisan.certifications.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-700 mb-2">Certifications</h4>
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">Certifications</h3>
                       <div className="flex flex-wrap gap-2">
                         {artisan.certifications.map((cert) => (
                           <Badge key={cert} variant="certified" className="gap-1">
@@ -298,7 +309,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
 
                   {artisan.insurances.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-700 mb-2">Assurances</h4>
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">Assurances</h3>
                       <div className="flex flex-wrap gap-2">
                         {artisan.insurances.map((ins) => (
                           <Badge key={ins} variant="secondary" className="gap-1">
@@ -312,7 +323,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
 
                   {artisan.labels.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-700 mb-2">Labels</h4>
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">Labels</h3>
                       <div className="flex flex-wrap gap-2">
                         {artisan.labels.map((label) => (
                           <Badge key={label} className="gap-1 bg-amber-100 text-amber-700 border-transparent">
@@ -326,7 +337,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
 
                   {artisan.guarantees && (
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-700 mb-2">Garanties</h4>
+                      <h3 className="text-sm font-semibold text-gray-700 mb-2">Garanties</h3>
                       <p className="text-sm text-gray-600">{artisan.guarantees}</p>
                     </div>
                   )}

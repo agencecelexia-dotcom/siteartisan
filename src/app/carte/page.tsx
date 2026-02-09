@@ -14,8 +14,16 @@ const ArtisanMapWithList = dynamic(() => import("@/components/ArtisanMapWithList
 })
 
 export const metadata: Metadata = {
-  title: "Carte des artisans | ArtisansFrance.fr",
-  description: "Découvrez tous nos artisans sur une carte interactive",
+  title: "Carte des artisans en France | ArtisansFrance.fr",
+  description: "D\u00e9couvrez tous les artisans certifi\u00e9s sur une carte interactive. Plombiers, piscinistes, paysagistes, \u00e9lectriciens, d\u00e9m\u00e9nageurs pr\u00e8s de chez vous.",
+  keywords: "carte artisans, artisans France, carte interactive, trouver artisan pr\u00e8s de chez moi",
+  openGraph: {
+    title: "Carte des artisans en France | ArtisansFrance.fr",
+    description: "D\u00e9couvrez tous les artisans certifi\u00e9s sur une carte interactive.",
+    type: "website",
+    locale: "fr_FR",
+    siteName: "ArtisansFrance.fr",
+  },
 }
 
 export default function CartePage() {

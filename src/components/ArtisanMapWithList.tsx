@@ -10,7 +10,7 @@ import { getCityCoordinates } from "@/lib/cityCoordinates"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Phone, ArrowRight, MapPin as MapPinIcon, List, Map as MapIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, getArtisanUrl } from "@/lib/utils"
 
 interface ArtisanMapWithListProps {
   artisans: Artisan[]
@@ -194,7 +194,7 @@ export default function ArtisanMapWithList({ artisans }: ArtisanMapWithListProps
               </div>
             </div>
             <div className="mt-2 flex gap-2">
-              <Link href={`/artisan/${artisan.id}`} className="flex-1" onClick={(e) => e.stopPropagation()}>
+              <Link href={getArtisanUrl(artisan.id)} className="flex-1" onClick={(e) => e.stopPropagation()}>
                 <Button size="sm" className="w-full gap-1" variant={isSelected ? "default" : "outline"}>
                   Voir la fiche
                   <ArrowRight className="w-3 h-3" />
@@ -273,7 +273,7 @@ export default function ArtisanMapWithList({ artisans }: ArtisanMapWithListProps
                   </div>
                 </div>
                 <div className="mt-3 flex gap-2">
-                  <Link href={`/artisan/${artisan.id}`} className="flex-1">
+                  <Link href={getArtisanUrl(artisan.id)} className="flex-1">
                     <Button size="sm" className="w-full gap-1">
                       Voir la fiche <ArrowRight className="w-3 h-3" />
                     </Button>

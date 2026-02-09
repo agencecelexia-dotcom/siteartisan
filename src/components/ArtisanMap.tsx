@@ -6,6 +6,7 @@ import { DivIcon } from "leaflet"
 import "leaflet/dist/leaflet.css"
 import Link from "next/link"
 import { Artisan } from "@/types/artisan"
+import { getArtisanUrl } from "@/lib/utils"
 import { getCityCoordinates } from "@/lib/cityCoordinates"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -151,7 +152,7 @@ export default function ArtisanMap({ artisans }: ArtisanMapProps) {
                   </div>
 
                   <div className="mt-3 flex gap-2">
-                    <Link href={`/artisan/${artisan.id}`} className="flex-1">
+                    <Link href={getArtisanUrl(artisan.id)} className="flex-1">
                       <Button size="sm" className="w-full gap-1">
                         Voir la fiche
                         <ArrowRight className="w-3 h-3" />
