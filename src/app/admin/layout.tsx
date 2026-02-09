@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
-  LayoutDashboard, Users, Plus, Settings, LogOut, Menu, X, Lock
+  LayoutDashboard, Users, Plus, Settings, LogOut, Menu, X, Lock, BarChart3
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -116,6 +116,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
     { href: "/admin/artisans", label: "Artisans", icon: Users },
     { href: "/admin/artisans/new", label: "Ajouter", icon: Plus },
+    { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
   ]
 
   return (

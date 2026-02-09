@@ -18,6 +18,7 @@ import { getArtisanById } from "@/data/artisans"
 import { formatPhone } from "@/lib/utils"
 import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
 import { isSupabaseConfigured, fetchArtisanById } from "@/lib/supabase"
+import { trackEvent } from "@/lib/analytics"
 import type { Artisan } from "@/types/artisan"
 
 export default function ArtisanDetailClient({ id }: { id: string }) {
@@ -31,6 +32,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
       if (mock) {
         setArtisan(mock)
         setLoading(false)
+        trackEvent(id, "view")
         return
       }
 
@@ -40,6 +42,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
           const data = await fetchArtisanById(id)
           if (data) {
             setArtisan(data)
+            trackEvent(id, "view")
           }
         } catch (error) {
           console.error("Error fetching artisan:", error)
@@ -346,6 +349,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
                 <CardContent className="space-y-4">
                   <a
                     href={`tel:${artisan.phone}`}
+                    onClick={() => trackEvent(artisan.id, "phone_click")}
                     className="flex items-center gap-3 p-3 rounded-xl bg-primary text-white hover:bg-primary-700 transition-colors shadow-md"
                   >
                     <Phone className="w-5 h-5" />
@@ -357,6 +361,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
 
                   <a
                     href={`mailto:${artisan.email}`}
+                    onClick={() => trackEvent(artisan.id, "email_click")}
                     className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors"
                   >
                     <Mail className="w-5 h-5 text-gray-500" />
@@ -371,6 +376,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
                       href={artisan.website}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackEvent(artisan.id, "website_click")}
                       className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors"
                     >
                       <Globe className="w-5 h-5 text-gray-500" />
@@ -400,6 +406,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
                           href={artisan.socials.facebook}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => trackEvent(artisan.id, "facebook_click")}
                           className="w-10 h-10 rounded-xl bg-gray-100 hover:bg-blue-100 hover:text-blue-600 flex items-center justify-center transition-all"
                         >
                           <Facebook className="w-4 h-4" />
@@ -410,6 +417,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
                           href={artisan.socials.instagram}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => trackEvent(artisan.id, "instagram_click")}
                           className="w-10 h-10 rounded-xl bg-gray-100 hover:bg-pink-100 hover:text-pink-600 flex items-center justify-center transition-all"
                         >
                           <Instagram className="w-4 h-4" />
@@ -420,6 +428,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
                           href={artisan.socials.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => trackEvent(artisan.id, "linkedin_click")}
                           className="w-10 h-10 rounded-xl bg-gray-100 hover:bg-blue-100 hover:text-blue-700 flex items-center justify-center transition-all"
                         >
                           <Linkedin className="w-4 h-4" />
@@ -430,7 +439,11 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
 
                   <Separator />
 
-                  <Button className="w-full gap-2 bg-secondary hover:bg-secondary-600 shadow-md" size="lg">
+                  <Button
+                    className="w-full gap-2 bg-secondary hover:bg-secondary-600 shadow-md"
+                    size="lg"
+                    onClick={() => trackEvent(artisan.id, "quote_click")}
+                  >
                     <Mail className="w-4 h-4" />
                     Demander un devis
                   </Button>
