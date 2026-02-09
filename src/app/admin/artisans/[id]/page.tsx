@@ -1,21 +1,13 @@
-"use client"
+import { artisans, getArtisanById } from "@/data/artisans"
+import EditArtisanClient from "./EditArtisanClient"
 
-import React from "react"
-import { notFound } from "next/navigation"
-import ArtisanForm from "@/components/admin/ArtisanForm"
-import { getArtisanById } from "@/data/artisans"
+export function generateStaticParams() {
+  return artisans.map((a) => ({ id: a.id }))
+}
 
 export default function EditArtisanPage({ params }: { params: { id: string } }) {
   const artisan = getArtisanById(params.id)
-  if (!artisan) return notFound()
+  if (!artisan) return <div>Artisan non trouvé</div>
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-heading font-bold text-gray-900">&Eacute;diter : {artisan.businessName}</h1>
-        <p className="text-gray-500 mt-1">Modifiez les informations de la fiche artisan</p>
-      </div>
-      <ArtisanForm artisan={artisan} />
-    </div>
-  )
+  return <EditArtisanClient artisan={artisan} />
 }
