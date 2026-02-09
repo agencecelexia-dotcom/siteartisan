@@ -9,13 +9,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/">
-              <img
-                src="/logo.png"
-                alt="ArtisansFrance.fr - Annuaire des artisans"
-                className="h-8 sm:h-10 w-auto brightness-0 invert"
-              />
-            </Link>
+            <h3 className="text-sm font-heading font-semibold text-white uppercase tracking-wider">
+              ArtisansFrance.fr
+            </h3>
             <p className="text-sm text-gray-400 leading-relaxed">
               L&apos;annuaire de r&eacute;f&eacute;rence pour trouver les meilleurs artisans pr&egrave;s de chez vous.
               Plombiers, piscinistes, paysagistes et &eacute;lectriciens certifi&eacute;s.
