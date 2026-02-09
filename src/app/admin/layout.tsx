@@ -46,7 +46,7 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
             <Lock className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-heading font-bold text-gray-900">Administration</h1>
-          <p className="text-gray-500 mt-1">Connectez-vous pour acc&eacute;der au panneau d&apos;administration</p>
+          <p className="text-gray-500 mt-1">Connectez-vous pour accéder au panneau d&apos;administration</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-6">
@@ -73,7 +73,7 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
         </form>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          SiteArtisan &mdash; Panneau d&apos;administration
+          SiteArtisan — Panneau d&apos;administration
         </p>
       </div>
     </div>
@@ -82,14 +82,15 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === "undefined") return
+
     const auth = localStorage.getItem("admin_auth")
     setIsAuthenticated(auth === "true")
-    setIsLoading(false)
   }, [])
 
   const handleLogout = () => {
@@ -97,7 +98,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     setIsAuthenticated(false)
   }
 
-  if (isLoading) {
+  // Show loading spinner while checking authentication (isAuthenticated is null)
+  if (isAuthenticated === null) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -105,6 +107,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     )
   }
 
+  // Show login form if not authenticated
   if (!isAuthenticated) {
     return <AdminLogin onLogin={() => setIsAuthenticated(true)} />
   }
