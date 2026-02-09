@@ -1,7 +1,10 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { isSupabaseConfigured } from "@/lib/supabase"
+// Inline check to avoid importing supabase SDK at module level
+function checkSupabaseConfigured() {
+  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+}
 
 export default function TestPage() {
   const [supabaseStatus, setSupabaseStatus] = useState<string>("Vérification...")
@@ -9,7 +12,7 @@ export default function TestPage() {
 
   useEffect(() => {
     // Check Supabase configuration
-    const configured = isSupabaseConfigured()
+    const configured = checkSupabaseConfigured()
     setSupabaseStatus(configured ? "✅ Configuré" : "❌ Non configuré")
 
     // Check environment variables

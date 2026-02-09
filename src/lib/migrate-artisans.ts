@@ -1,13 +1,17 @@
 /**
  * Migration helper to convert mock artisans to Supabase format
- * Run this in the browser console to migrate all artisans at once
  */
 
-import { supabase } from "./supabase"
+import { getSupabase } from "./supabase"
 import { artisans as mockArtisans } from "@/data/artisans"
 import type { Artisan as MockArtisan } from "@/types/artisan"
 
 export async function migrateArtisansToSupabase() {
+  const supabase = getSupabase()
+  if (!supabase) {
+    throw new Error("Supabase non configur\u00e9. V\u00e9rifiez vos variables d'environnement.")
+  }
+
   try {
     console.log(`Starting migration of ${mockArtisans.length} artisans...`)
 
@@ -48,32 +52,35 @@ export async function migrateArtisansToSupabase() {
       if (error) {
         console.error(`Error inserting batch ${i / batchSize + 1}:`, error)
       } else {
-        console.log(`✓ Batch ${i / batchSize + 1}: ${data?.length || 0} artisans inserted`)
+        console.log(`Batch ${i / batchSize + 1}: ${data?.length || 0} artisans inserted`)
       }
 
-      // Small delay between batches
       await new Promise((resolve) => setTimeout(resolve, 100))
     }
 
-    console.log("✅ Migration complete!")
+    console.log("Migration complete!")
   } catch (error) {
     console.error("Migration failed:", error)
+    throw error
   }
 }
 
 // Check if migration is complete
 export async function checkMigrationStatus() {
+  const supabase = getSupabase()
+  if (!supabase) return 0
+
   try {
     const { count, error } = await supabase.from("artisans").select("*", { count: "exact" })
 
     if (error) {
       console.error("Error checking migration status:", error)
-      return
+      return 0
     }
 
-    console.log(`Database contains ${count} artisans`)
-    return count
+    return count || 0
   } catch (error) {
     console.error("Error:", error)
+    return 0
   }
 }

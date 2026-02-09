@@ -1,14 +1,28 @@
-import { createClient } from "@supabase/supabase-js"
+import { createClient, SupabaseClient } from "@supabase/supabase-js"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ""
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ""
 
-// Client for browser (uses anon key)
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Lazy-initialized clients to avoid crashing when env vars are empty
+let _supabase: SupabaseClient | null = null
+let _supabaseServer: SupabaseClient | null = null
 
-// Client for server (uses service role key)
-export const supabaseServer = createClient(supabaseUrl, serviceRoleKey)
+export function getSupabase(): SupabaseClient | null {
+  if (!supabaseUrl || !supabaseAnonKey) return null
+  if (!_supabase) {
+    _supabase = createClient(supabaseUrl, supabaseAnonKey)
+  }
+  return _supabase
+}
+
+export function getSupabaseServer(): SupabaseClient | null {
+  if (!supabaseUrl || !serviceRoleKey) return null
+  if (!_supabaseServer) {
+    _supabaseServer = createClient(supabaseUrl, serviceRoleKey)
+  }
+  return _supabaseServer
+}
 
 // Type for Artisan data from Supabase
 export type Artisan = {
@@ -52,13 +66,11 @@ export async function authenticateAdmin(password: string): Promise<boolean> {
 
 // Fetch all artisans from Supabase
 export async function fetchArtisans(): Promise<Artisan[]> {
-  if (!isSupabaseConfigured()) {
-    console.warn("Supabase not configured, returning empty array")
-    return []
-  }
+  const client = getSupabase()
+  if (!client) return []
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from("artisans")
       .select("*")
       .eq("actif", true)
@@ -78,12 +90,11 @@ export async function fetchArtisans(): Promise<Artisan[]> {
 
 // Fetch single artisan by ID
 export async function fetchArtisanById(id: string): Promise<Artisan | null> {
-  if (!isSupabaseConfigured()) {
-    return null
-  }
+  const client = getSupabase()
+  if (!client) return null
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from("artisans")
       .select("*")
       .eq("id", id)
@@ -103,13 +114,11 @@ export async function fetchArtisanById(id: string): Promise<Artisan | null> {
 
 // Create new artisan
 export async function createArtisan(artisan: Omit<Artisan, "id" | "date_creation" | "date_modification">): Promise<Artisan | null> {
-  if (!isSupabaseConfigured()) {
-    console.warn("Supabase not configured")
-    return null
-  }
+  const client = getSupabase()
+  if (!client) return null
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from("artisans")
       .insert([
         {
@@ -136,13 +145,11 @@ export async function createArtisan(artisan: Omit<Artisan, "id" | "date_creation
 
 // Update artisan
 export async function updateArtisan(id: string, updates: Partial<Artisan>): Promise<Artisan | null> {
-  if (!isSupabaseConfigured()) {
-    console.warn("Supabase not configured")
-    return null
-  }
+  const client = getSupabase()
+  if (!client) return null
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from("artisans")
       .update({
         ...updates,
@@ -166,13 +173,11 @@ export async function updateArtisan(id: string, updates: Partial<Artisan>): Prom
 
 // Soft delete artisan (set actif to false)
 export async function deleteArtisan(id: string): Promise<boolean> {
-  if (!isSupabaseConfigured()) {
-    console.warn("Supabase not configured")
-    return false
-  }
+  const client = getSupabase()
+  if (!client) return false
 
   try {
-    const { error } = await supabase
+    const { error } = await client
       .from("artisans")
       .update({
         actif: false,
