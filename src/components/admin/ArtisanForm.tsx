@@ -2,10 +2,11 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import {
   Save, Eye, ArrowLeft,
   User, Phone,
-  FileText, Briefcase, Award, Tag
+  FileText, Briefcase, Award, Tag, Loader2
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,15 +16,19 @@ import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
 import { Artisan, Trade, TRADES } from "@/types/artisan"
 import { cn } from "@/lib/utils"
+import { createArtisan, updateArtisan, isSupabaseConfigured } from "@/lib/supabase"
+import type { ArtisanFormData } from "@/lib/supabase"
 
 interface ArtisanFormProps {
   artisan?: Artisan
+  supabaseId?: string
 }
 
-export default function ArtisanForm({ artisan }: ArtisanFormProps) {
+export default function ArtisanForm({ artisan, supabaseId }: ArtisanFormProps) {
+  const router = useRouter()
   const isEditing = !!artisan
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ArtisanFormData>({
     businessName: artisan?.businessName || "",
     trades: artisan?.trades || [] as Trade[],
     phone: artisan?.phone || "",
@@ -57,7 +62,9 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
     coverPhotoUrl: artisan?.coverPhoto || "",
   })
 
+  const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [error, setError] = useState("")
 
   const updateField = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -72,11 +79,33 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real app, this would save to a database
-    setSaved(true)
-    setTimeout(() => setSaved(false), 3000)
+    setError("")
+    setSaving(true)
+
+    if (!isSupabaseConfigured()) {
+      setError("Supabase n'est pas configur\u00e9. V\u00e9rifiez les variables d'environnement.")
+      setSaving(false)
+      return
+    }
+
+    try {
+      if (isEditing && supabaseId) {
+        await updateArtisan(supabaseId, formData)
+      } else {
+        await createArtisan(formData)
+      }
+      setSaved(true)
+      setTimeout(() => {
+        router.push("/admin/artisans")
+      }, 1000)
+    } catch (err: any) {
+      console.error("Save error:", err)
+      setError(err.message || "Erreur lors de la sauvegarde")
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -88,17 +117,17 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
           Retour &agrave; la liste
         </Link>
         <div className="flex items-center gap-3">
-          {artisan && (
-            <Link href={`/artisan/${artisan.id}`}>
-              <Button type="button" variant="outline" size="sm" className="gap-2">
-                <Eye className="w-4 h-4" />
-                Pr&eacute;visualiser
-              </Button>
-            </Link>
+          {error && (
+            <p className="text-sm text-red-500 max-w-xs truncate">{error}</p>
           )}
-          <Button type="submit" size="sm" className="gap-2">
-            <Save className="w-4 h-4" />
-            {saved ? "Sauvegard\u00e9 !" : "Sauvegarder"}
+          <Button type="submit" size="sm" className="gap-2" disabled={saving}>
+            {saving ? (
+              <><Loader2 className="w-4 h-4 animate-spin" /> Sauvegarde...</>
+            ) : saved ? (
+              <><Save className="w-4 h-4" /> Sauvegard&eacute; !</>
+            ) : (
+              <><Save className="w-4 h-4" /> {isEditing ? "Mettre \u00e0 jour" : "Cr\u00e9er l'artisan"}</>
+            )}
           </Button>
         </div>
       </div>
@@ -191,7 +220,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
                 placeholder="https://..."
               />
               {formData.profilePhotoUrl && (
-                <img src={formData.profilePhotoUrl} alt="Aperçu de la photo de profil" loading="lazy" className="mt-2 w-20 h-20 rounded-xl object-cover" />
+                <img src={formData.profilePhotoUrl} alt="Aper&#231;u profil" loading="lazy" className="mt-2 w-20 h-20 rounded-xl object-cover" />
               )}
             </div>
             <div>
@@ -204,7 +233,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
                 placeholder="https://..."
               />
               {formData.coverPhotoUrl && (
-                <img src={formData.coverPhotoUrl} alt="Aperçu de la photo de couverture" loading="lazy" className="mt-2 w-full h-24 rounded-xl object-cover" />
+                <img src={formData.coverPhotoUrl} alt="Aper&#231;u couverture" loading="lazy" className="mt-2 w-full h-24 rounded-xl object-cover" />
               )}
             </div>
           </div>
@@ -257,7 +286,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
               <Input
                 value={formData.address}
                 onChange={(e) => updateField("address", e.target.value)}
-                placeholder="12 rue de la R\u00e9publique"
+                placeholder="12 rue de la R&#233;publique"
               />
             </div>
             <div>
@@ -289,7 +318,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
               <Input
                 value={formData.department}
                 onChange={(e) => updateField("department", e.target.value)}
-                placeholder="Rh\u00f4ne"
+                placeholder="Rh&#244;ne"
                 required
               />
             </div>
@@ -338,7 +367,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
         <CardContent className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Description courte <span className="text-xs text-gray-400">(200 caract&egrave;res max, affich&eacute;e dans les cards)</span>
+              Description courte <span className="text-xs text-gray-400">(200 caract&egrave;res max)</span>
             </label>
             <Textarea
               value={formData.shortDescription}
@@ -357,7 +386,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
               value={formData.fullDescription}
               onChange={(e) => updateField("fullDescription", e.target.value)}
               rows={6}
-              placeholder="Description d\u00e9taill\u00e9e de l'entreprise, services, historique..."
+              placeholder="Description d&#233;taill&#233;e de l'entreprise..."
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -404,7 +433,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
               value={formData.projectTypes}
               onChange={(e) => updateField("projectTypes", e.target.value)}
               rows={2}
-              placeholder="R\u00e9novation salle de bain, Installation chauffage, D\u00e9pannage urgence..."
+              placeholder="R&#233;novation salle de bain, Installation chauffage..."
             />
           </div>
           <div>
@@ -414,7 +443,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
             <Input
               value={formData.specialties}
               onChange={(e) => updateField("specialties", e.target.value)}
-              placeholder="R\u00e9novation haut de gamme, plomberie \u00e9cologique..."
+              placeholder="R&#233;novation haut de gamme..."
             />
           </div>
         </CardContent>
@@ -447,7 +476,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
               <Input
                 value={formData.insurances}
                 onChange={(e) => updateField("insurances", e.target.value)}
-                placeholder="RC Pro, D\u00e9cennale..."
+                placeholder="RC Pro, D&#233;cennale..."
               />
             </div>
             <div>
@@ -467,7 +496,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
               <Input
                 value={formData.guarantees}
                 onChange={(e) => updateField("guarantees", e.target.value)}
-                placeholder="Garantie d\u00e9cennale, SAV..."
+                placeholder="Garantie d&#233;cennale, SAV..."
               />
             </div>
           </div>
@@ -485,7 +514,7 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
         </CardContent>
       </Card>
 
-      {/* Rating */}
+      {/* Rating & SEO */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
@@ -552,9 +581,14 @@ export default function ArtisanForm({ artisan }: ArtisanFormProps) {
             Annuler
           </Button>
         </Link>
-        <Button type="submit" className="gap-2">
-          <Save className="w-4 h-4" />
-          {saved ? "Sauvegard\u00e9 !" : isEditing ? "Mettre \u00e0 jour" : "Cr\u00e9er l'artisan"}
+        <Button type="submit" className="gap-2" disabled={saving}>
+          {saving ? (
+            <><Loader2 className="w-4 h-4 animate-spin" /> Sauvegarde...</>
+          ) : saved ? (
+            <><Save className="w-4 h-4" /> Sauvegard&eacute; !</>
+          ) : (
+            <><Save className="w-4 h-4" /> {isEditing ? "Mettre \u00e0 jour" : "Cr\u00e9er l'artisan"}</>
+          )}
         </Button>
       </div>
     </form>

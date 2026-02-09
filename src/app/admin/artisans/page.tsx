@@ -2,54 +2,72 @@
 
 import React, { useState, useMemo, useEffect } from "react"
 import Link from "next/link"
-import { Search, Plus, Eye, Edit, Trash2, CheckCircle, XCircle, AlertCircle } from "lucide-react"
+import { Search, Plus, Edit, Trash2, CheckCircle, XCircle, AlertCircle, Database, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import StarRating from "@/components/StarRating"
 import { artisans as mockArtisans } from "@/data/artisans"
-import { Trade, TRADES } from "@/types/artisan"
+import { Artisan, Trade, TRADES } from "@/types/artisan"
 import { cn } from "@/lib/utils"
 import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
-import { isSupabaseConfigured, fetchArtisans } from "@/lib/supabase"
+import { isSupabaseConfigured, fetchAllArtisans, deleteArtisan } from "@/lib/supabase"
 
 export default function AdminArtisansPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [filterTrade, setFilterTrade] = useState<string>("")
   const [filterStatus, setFilterStatus] = useState<string>("")
-  const [supabaseConfigured, setSupabaseConfigured] = useState(false)
+  const [supabaseActive, setSupabaseActive] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [artisans, setArtisans] = useState(mockArtisans)
+  const [artisans, setArtisans] = useState<Artisan[]>(mockArtisans)
+  const [deleting, setDeleting] = useState<string | null>(null)
 
-  useEffect(() => {
-    const loadArtisans = async () => {
-      setIsLoading(true)
-      const configured = isSupabaseConfigured()
-      setSupabaseConfigured(configured)
+  const loadArtisans = async () => {
+    setIsLoading(true)
+    const configured = isSupabaseConfigured()
+    setSupabaseActive(configured)
 
-      if (configured) {
-        try {
-          const data = await fetchArtisans()
-          if (data && data.length > 0) {
-            // Convert Supabase data to mock artisan format
-            setArtisans(data as any)
-          } else {
-            // Use mock data if no Supabase data found
-            setArtisans(mockArtisans)
-          }
-        } catch (error) {
-          console.error("Error fetching artisans from Supabase:", error)
+    if (configured) {
+      try {
+        const data = await fetchAllArtisans()
+        if (data && data.length > 0) {
+          setArtisans(data)
+        } else {
           setArtisans(mockArtisans)
         }
-      } else {
+      } catch (error) {
+        console.error("Error fetching from Supabase:", error)
         setArtisans(mockArtisans)
       }
-      setIsLoading(false)
+    } else {
+      setArtisans(mockArtisans)
     }
+    setIsLoading(false)
+  }
 
+  useEffect(() => {
     loadArtisans()
   }, [])
+
+  const handleDelete = async (id: string, name: string) => {
+    if (!confirm(`Supprimer "${name}" ? Cette action est irr\u00e9versible.`)) return
+
+    setDeleting(id)
+    try {
+      const success = await deleteArtisan(id)
+      if (success) {
+        setArtisans((prev) => prev.filter((a) => a.id !== id))
+      } else {
+        alert("Erreur lors de la suppression")
+      }
+    } catch (error) {
+      console.error("Delete error:", error)
+      alert("Erreur lors de la suppression")
+    } finally {
+      setDeleting(null)
+    }
+  }
 
   const filteredArtisans = useMemo(() => {
     return artisans.filter((a) => {
@@ -67,7 +85,7 @@ export default function AdminArtisansPage() {
       if (filterStatus && a.status !== filterStatus) return false
       return true
     })
-  }, [searchQuery, filterTrade, filterStatus])
+  }, [artisans, searchQuery, filterTrade, filterStatus])
 
   if (isLoading) {
     return (
@@ -80,20 +98,20 @@ export default function AdminArtisansPage() {
   return (
     <div className="space-y-6">
       {/* Status Banner */}
-      {!supabaseConfigured && (
+      {supabaseActive ? (
+        <Card className="bg-green-50 border-green-200 p-4 flex items-start gap-3">
+          <Database className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-medium text-green-900">Connect&eacute; &agrave; Supabase</p>
+            <p className="text-sm text-green-700">Les modifications sont enregistr&eacute;es dans la base de donn&eacute;es.</p>
+          </div>
+        </Card>
+      ) : (
         <Card className="bg-amber-50 border-amber-200 p-4 flex items-start gap-3">
           <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-          <div className="flex-1">
-            <p className="font-medium text-amber-900">Supabase non configuré</p>
-            <p className="text-sm text-amber-800 mt-1">
-              Actuellement en mode démo avec données locales. Pour activer Supabase:
-              <ol className="list-decimal list-inside mt-2 ml-1 space-y-1">
-                <li>Lisez le guide <code className="bg-white px-1 rounded text-xs">SUPABASE_SETUP.md</code></li>
-                <li>Créez un projet Supabase</li>
-                <li>Mettez à jour <code className="bg-white px-1 rounded text-xs">.env.local</code></li>
-                <li>Redémarrez le serveur</li>
-              </ol>
-            </p>
+          <div>
+            <p className="font-medium text-amber-900">Mode d&eacute;mo (Supabase non configur&eacute;)</p>
+            <p className="text-sm text-amber-800">Affichage des donn&eacute;es locales. Configurez les variables d&apos;environnement Supabase sur Vercel.</p>
           </div>
         </Card>
       )}
@@ -104,7 +122,7 @@ export default function AdminArtisansPage() {
           <h1 className="text-2xl font-heading font-bold text-gray-900">Gestion des artisans</h1>
           <p className="text-gray-500 mt-1">
             {artisans.length} artisans au total
-            {!supabaseConfigured && " (mode démo)"}
+            {!supabaseActive && " (mode d\u00e9mo)"}
           </p>
         </div>
         <Link href="/admin/artisans/new">
@@ -170,12 +188,18 @@ export default function AdminArtisansPage() {
                 <tr key={artisan.id} className="hover:bg-gray-50/50 transition-colors">
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <img
-                        src={artisan.profilePhoto}
-                        alt={`Logo de ${artisan.businessName}`}
-                        loading="lazy"
-                        className="w-10 h-10 rounded-lg object-cover"
-                      />
+                      {artisan.profilePhoto ? (
+                        <img
+                          src={artisan.profilePhoto}
+                          alt={`Logo de ${artisan.businessName}`}
+                          loading="lazy"
+                          className="w-10 h-10 rounded-lg object-cover"
+                        />
+                      ) : (
+                        <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center text-primary font-bold text-sm">
+                          {artisan.businessName.charAt(0)}
+                        </div>
+                      )}
                       <div className="min-w-0">
                         <div className="font-medium text-sm text-gray-900 truncate">{artisan.businessName}</div>
                         <div className="text-xs text-gray-500 truncate">{artisan.email}</div>
@@ -213,19 +237,26 @@ export default function AdminArtisansPage() {
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center justify-end gap-1">
-                      <Link href={`/artisan/${artisan.id}`}>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-gray-600">
-                          <Eye className="w-4 h-4" />
-                        </Button>
-                      </Link>
                       <Link href={`/admin/artisans/${artisan.id}`}>
                         <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-primary">
                           <Edit className="w-4 h-4" />
                         </Button>
                       </Link>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-red-500">
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
+                      {supabaseActive && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-gray-400 hover:text-red-500"
+                          disabled={deleting === artisan.id}
+                          onClick={() => handleDelete(artisan.id, artisan.businessName)}
+                        >
+                          {deleting === artisan.id ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
+                        </Button>
+                      )}
                     </div>
                   </td>
                 </tr>

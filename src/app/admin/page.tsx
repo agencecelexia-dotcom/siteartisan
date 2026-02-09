@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
-import { Users, MapPin, Star, TrendingUp, Plus, ArrowRight, Wrench, Waves, TreePine, Zap, Truck, AlertCircle, Upload } from "lucide-react"
+import { Users, MapPin, Star, TrendingUp, Plus, ArrowRight, Wrench, Waves, TreePine, Zap, Truck, Upload, Database } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { artisans, getStats } from "@/data/artisans"
-import { TRADES, Trade } from "@/types/artisan"
+import { artisans as mockArtisans } from "@/data/artisans"
+import { Artisan, TRADES, Trade } from "@/types/artisan"
 import { tradeBadgeVariant } from "@/lib/constants"
-import { isSupabaseConfigured } from "@/lib/supabase"
+import { isSupabaseConfigured, fetchAllArtisans } from "@/lib/supabase"
 
 const tradeIcons: Record<Trade, React.ReactNode> = {
   plombier: <Wrench className="w-5 h-5" />,
@@ -20,15 +20,37 @@ const tradeIcons: Record<Trade, React.ReactNode> = {
 }
 
 export default function AdminDashboard() {
-  const [supabaseConfigured, setSupabaseConfigured] = useState(false)
+  const [supabaseActive, setSupabaseActive] = useState(false)
+  const [artisans, setArtisans] = useState<Artisan[]>(mockArtisans)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setSupabaseConfigured(isSupabaseConfigured())
+    const load = async () => {
+      const configured = isSupabaseConfigured()
+      setSupabaseActive(configured)
+
+      if (configured) {
+        try {
+          const data = await fetchAllArtisans()
+          if (data && data.length > 0) {
+            setArtisans(data)
+          }
+        } catch (error) {
+          console.error("Dashboard fetch error:", error)
+        }
+      }
+      setLoading(false)
+    }
+    load()
   }, [])
 
-  const stats = getStats()
   const activeArtisans = artisans.filter((a) => a.status === "active")
-  const recentArtisans = [...activeArtisans].sort(
+  const uniqueCities = new Set(activeArtisans.map((a) => a.city)).size
+  const avgRating = activeArtisans.length > 0
+    ? (activeArtisans.reduce((sum, a) => sum + a.rating.average, 0) / activeArtisans.length).toFixed(1)
+    : "0"
+
+  const recentArtisans = [...artisans].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   ).slice(0, 5)
 
@@ -36,6 +58,14 @@ export default function AdminDashboard() {
     ...trade,
     count: activeArtisans.filter((a) => a.trades.includes(trade.id)).length,
   }))
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-8">
@@ -53,24 +83,38 @@ export default function AdminDashboard() {
         </Link>
       </div>
 
-      {/* Import Banner */}
-      {supabaseConfigured && (
+      {/* Supabase Status + Import Banner */}
+      {supabaseActive ? (
         <Card className="bg-blue-50 border-blue-200">
           <CardContent className="p-6 flex items-start gap-4">
-            <Upload className="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
+            <Database className="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
             <div className="flex-1">
-              <h3 className="font-semibold text-blue-900 mb-1">Importer les données Supabase</h3>
+              <h3 className="font-semibold text-blue-900 mb-1">Connect&eacute; &agrave; Supabase</h3>
               <p className="text-sm text-blue-800 mb-4">
-                Vous pouvez maintenant importer les 30 artisans existants dans votre base de données Supabase. Cela rendra la gestion plus efficace.
+                Vous pouvez importer les 30 artisans de d&eacute;mo dans Supabase, ou ajouter de nouveaux artisans directement.
               </p>
-              <Link href="/admin/import">
-                <Button size="sm" className="gap-2">
-                  <Upload className="w-4 h-4" />
-                  Importer les artisans
-                </Button>
-              </Link>
+              <div className="flex gap-3">
+                <Link href="/admin/import">
+                  <Button size="sm" variant="outline" className="gap-2">
+                    <Upload className="w-4 h-4" />
+                    Importer les artisans
+                  </Button>
+                </Link>
+                <Link href="/admin/artisans/new">
+                  <Button size="sm" className="gap-2">
+                    <Plus className="w-4 h-4" />
+                    Nouveau
+                  </Button>
+                </Link>
+              </div>
             </div>
           </CardContent>
+        </Card>
+      ) : (
+        <Card className="bg-amber-50 border-amber-200 p-4 flex items-start gap-3">
+          <div className="text-sm text-amber-800">
+            <strong>Mode d&eacute;mo</strong> &mdash; Supabase non configur&eacute;. Les donn&eacute;es affich&eacute;es sont locales.
+          </div>
         </Card>
       )}
 
@@ -83,7 +127,7 @@ export default function AdminDashboard() {
                 <Users className="w-6 h-6" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">{stats.totalArtisans}</div>
+                <div className="text-2xl font-bold text-gray-900">{activeArtisans.length}</div>
                 <div className="text-sm text-gray-500">Artisans actifs</div>
               </div>
             </div>
@@ -97,7 +141,7 @@ export default function AdminDashboard() {
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">{stats.totalCities}</div>
+                <div className="text-2xl font-bold text-gray-900">{uniqueCities}</div>
                 <div className="text-sm text-gray-500">Villes</div>
               </div>
             </div>
@@ -111,7 +155,7 @@ export default function AdminDashboard() {
                 <Star className="w-6 h-6" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">{stats.averageRating}/5</div>
+                <div className="text-2xl font-bold text-gray-900">{avgRating}/5</div>
                 <div className="text-sm text-gray-500">Note moyenne</div>
               </div>
             </div>
@@ -182,12 +226,18 @@ export default function AdminDashboard() {
                 href={`/admin/artisans/${artisan.id}`}
                 className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
               >
-                <img
-                  src={artisan.profilePhoto}
-                  alt={`Logo de ${artisan.businessName}`}
-                  loading="lazy"
-                  className="w-10 h-10 rounded-lg object-cover"
-                />
+                {artisan.profilePhoto ? (
+                  <img
+                    src={artisan.profilePhoto}
+                    alt={`Logo de ${artisan.businessName}`}
+                    loading="lazy"
+                    className="w-10 h-10 rounded-lg object-cover"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center text-primary font-bold text-sm">
+                    {artisan.businessName.charAt(0)}
+                  </div>
+                )}
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium text-gray-900 truncate">
                     {artisan.businessName}

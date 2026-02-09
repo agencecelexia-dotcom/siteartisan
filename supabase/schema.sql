@@ -1,57 +1,87 @@
--- Artisans Table for SiteArtisan
--- Run this SQL in your Supabase dashboard under SQL Editor
--- https://app.supabase.com/project/[YOUR_PROJECT_ID]/sql/new
+-- SiteArtisan - Schema Supabase
+-- Executer dans Supabase SQL Editor: https://supabase.com/dashboard/project/xkokjxwfeookisasnamz/sql/new
 
+-- Supprimer l'ancienne table si elle existe
+DROP TABLE IF EXISTS artisans;
+
+-- Creer la table artisans (colonnes alignees avec le frontend)
 CREATE TABLE artisans (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name VARCHAR(100) NOT NULL,
-  prenom VARCHAR(100) NOT NULL,
-  email VARCHAR(255) NOT NULL UNIQUE,
-  telephone VARCHAR(20),
-  entreprise VARCHAR(255) NOT NULL,
-  metier VARCHAR(100) NOT NULL,
-  specialite VARCHAR(255),
-  telephone_professionnel VARCHAR(20),
-  email_professionnel VARCHAR(255),
-  adresse TEXT,
-  code_postal VARCHAR(10),
-  ville VARCHAR(100),
-  zone_intervention TEXT,
-  site_web VARCHAR(255),
-  services TEXT[] DEFAULT ARRAY[]::text[],
+
+  -- Identite
+  business_name VARCHAR(255) NOT NULL,
+  trades TEXT[] DEFAULT ARRAY[]::text[],
+  profile_photo TEXT,
+  cover_photo TEXT,
+  founded_year INTEGER,
+
+  -- Contact
+  phone VARCHAR(20),
+  email VARCHAR(255) NOT NULL,
+  website VARCHAR(255),
+  address TEXT,
+  city VARCHAR(100),
+  postal_code VARCHAR(10),
+  department VARCHAR(100),
+  facebook VARCHAR(255),
+  instagram VARCHAR(255),
+  linkedin VARCHAR(255),
+
+  -- Presentation
+  short_description TEXT,
+  full_description TEXT,
+  service_area TEXT[] DEFAULT ARRAY[]::text[],
+  service_radius INTEGER DEFAULT 30,
+
+  -- Expertise
+  project_types TEXT[] DEFAULT ARRAY[]::text[],
+  specialties TEXT,
   certifications TEXT[] DEFAULT ARRAY[]::text[],
-  assurances TEXT[] DEFAULT ARRAY[]::text[],
-  photos TEXT[] DEFAULT ARRAY[]::text[],
-  avis_count INTEGER DEFAULT 0,
-  note_moyenne DECIMAL(3, 2) DEFAULT 0,
-  verifie BOOLEAN DEFAULT FALSE,
-  actif BOOLEAN DEFAULT TRUE,
-  date_creation TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  date_modification TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  CONSTRAINT email_valid CHECK (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$')
+  insurances TEXT[] DEFAULT ARRAY[]::text[],
+  guarantees TEXT,
+  labels TEXT[] DEFAULT ARRAY[]::text[],
+
+  -- Notes
+  rating_average DECIMAL(3,2) DEFAULT 0,
+  rating_count INTEGER DEFAULT 0,
+
+  -- Statut
+  is_certified BOOLEAN DEFAULT FALSE,
+  status VARCHAR(20) DEFAULT 'active',
+
+  -- SEO
+  meta_title TEXT,
+  meta_description TEXT,
+
+  -- Portfolio (JSON array of {imageUrl, description})
+  portfolio JSONB DEFAULT '[]'::jsonb,
+
+  -- Timestamps
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Create index for faster queries
-CREATE INDEX idx_artisans_metier ON artisans(metier);
-CREATE INDEX idx_artisans_ville ON artisans(ville);
-CREATE INDEX idx_artisans_actif ON artisans(actif);
-CREATE INDEX idx_artisans_date_creation ON artisans(date_creation DESC);
+-- Index pour les requetes frequentes
+CREATE INDEX idx_artisans_status ON artisans(status);
+CREATE INDEX idx_artisans_city ON artisans(city);
+CREATE INDEX idx_artisans_trades ON artisans USING GIN(trades);
+CREATE INDEX idx_artisans_created ON artisans(created_at DESC);
 
--- Enable Row Level Security
+-- Row Level Security
 ALTER TABLE artisans ENABLE ROW LEVEL SECURITY;
 
--- Policy: Anyone can read active artisans
-CREATE POLICY "Allow public read on active artisans" ON artisans
-  FOR SELECT
-  USING (actif = true);
+-- Lecture publique (artisans actifs)
+CREATE POLICY "Public read active artisans" ON artisans
+  FOR SELECT USING (status = 'active');
 
--- Policy: Authenticated users can insert
-CREATE POLICY "Allow authenticated users to insert artisans" ON artisans
-  FOR INSERT
-  WITH CHECK (true);
+-- Insert pour tous (protege par le mot de passe admin cote client)
+CREATE POLICY "Allow insert" ON artisans
+  FOR INSERT WITH CHECK (true);
 
--- Sample data (optional - remove after testing)
--- INSERT INTO artisans (name, prenom, email, telephone, entreprise, metier, ville, zone_intervention)
--- VALUES
---   ('Dupont', 'Jean', 'jean.dupont@example.com', '01 23 45 67 89', 'Plomberie Dupont', 'Plombier', 'Paris', 'Paris et région parisienne'),
---   ('Martin', 'Pierre', 'pierre.martin@example.com', '02 34 56 78 90', 'Électricité Martin', 'Électricien', 'Lyon', 'Lyon et environs');
+-- Update pour tous
+CREATE POLICY "Allow update" ON artisans
+  FOR UPDATE USING (true) WITH CHECK (true);
+
+-- Delete pour tous
+CREATE POLICY "Allow delete" ON artisans
+  FOR DELETE USING (true);

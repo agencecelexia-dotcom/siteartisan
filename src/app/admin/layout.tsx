@@ -21,7 +21,7 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
 
     try {
       // Check against environment variable password
-      const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "admin123"
+      const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "Celexia@2006"
 
       if (password === adminPassword) {
         localStorage.setItem("admin_auth", "true")
