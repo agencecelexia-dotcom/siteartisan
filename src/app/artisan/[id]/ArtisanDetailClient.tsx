@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import {
@@ -17,10 +17,60 @@ import StarRating from "@/components/StarRating"
 import { getArtisanById } from "@/data/artisans"
 import { formatPhone } from "@/lib/utils"
 import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
+import { isSupabaseConfigured, fetchArtisanById } from "@/lib/supabase"
+import type { Artisan } from "@/types/artisan"
 
 export default function ArtisanDetailClient({ id }: { id: string }) {
-  const artisan = getArtisanById(id)
-  if (!artisan) return <div>Artisan non trouvé</div>
+  const [artisan, setArtisan] = useState<Artisan | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const load = async () => {
+      // Try mock data first (fast)
+      const mock = getArtisanById(id)
+      if (mock) {
+        setArtisan(mock)
+        setLoading(false)
+        return
+      }
+
+      // If not in mock data, try Supabase (for new artisans added via admin)
+      if (isSupabaseConfigured()) {
+        try {
+          const data = await fetchArtisanById(id)
+          if (data) {
+            setArtisan(data)
+          }
+        } catch (error) {
+          console.error("Error fetching artisan:", error)
+        }
+      }
+      setLoading(false)
+    }
+    load()
+  }, [id])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50/30 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
+
+  if (!artisan) {
+    return (
+      <div className="min-h-screen bg-gray-50/30 flex flex-col items-center justify-center gap-4">
+        <h1 className="text-2xl font-heading font-bold text-gray-400">Artisan non trouv&eacute;</h1>
+        <Link href="/artisans">
+          <Button variant="outline" className="gap-2">
+            <ArrowLeft className="w-4 h-4" />
+            Retour &agrave; l&apos;annuaire
+          </Button>
+        </Link>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50/30">
@@ -28,7 +78,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
       <div className="relative h-48 md:h-80 overflow-hidden bg-gray-200">
         <img
           src={artisan.coverPhoto}
-          alt={`Photo de couverture de ${artisan.businessName} - ${artisan.trades.map(t => tradeLabel[t]).join(', ')} à ${artisan.city}`}
+          alt={`Photo de couverture de ${artisan.businessName} - ${artisan.trades.map(t => tradeLabel[t]).join(', ')} \u00e0 ${artisan.city}`}
           loading="lazy"
           className="w-full h-full object-cover"
         />
@@ -75,7 +125,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
                         {artisan.isCertified && (
                           <Badge variant="certified" className="gap-1 mt-1">
                             <ShieldCheck className="w-3.5 h-3.5" />
-                            Certifié
+                            Certifi&eacute;
                           </Badge>
                         )}
                       </div>
@@ -119,7 +169,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Briefcase className="w-5 h-5 text-primary" />
-                    Présentation
+                    Pr&eacute;sentation
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -127,7 +177,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
 
                   {artisan.specialties && (
                     <div className="mt-6">
-                      <h4 className="text-sm font-semibold text-gray-700 mb-2">Spécialités</h4>
+                      <h4 className="text-sm font-semibold text-gray-700 mb-2">Sp&eacute;cialit&eacute;s</h4>
                       <p className="text-sm text-gray-500">{artisan.specialties}</p>
                     </div>
                   )}
@@ -188,7 +238,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Camera className="w-5 h-5 text-primary" />
-                      Réalisations
+                      R&eacute;alisations
                     </CardTitle>
                   </CardHeader>
                   <CardContent>

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { Suspense, useState, useMemo } from "react"
+import React, { Suspense, useState, useMemo, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 import { SlidersHorizontal, X, Search } from "lucide-react"
@@ -8,9 +8,10 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import ArtisanCard from "@/components/ArtisanCard"
 import SearchBar from "@/components/SearchBar"
-import { artisans } from "@/data/artisans"
-import { TRADES, Trade } from "@/types/artisan"
+import { artisans as mockArtisans } from "@/data/artisans"
+import { TRADES, Artisan } from "@/types/artisan"
 import { cn } from "@/lib/utils"
+import { isSupabaseConfigured, fetchActiveArtisans } from "@/lib/supabase"
 
 export default function ArtisansPage() {
   return (
@@ -25,6 +26,10 @@ function ArtisansContent() {
   const initialTrade = searchParams.get("trade") || ""
   const initialCity = searchParams.get("city") || ""
 
+  const [allArtisans, setAllArtisans] = useState<Artisan[]>(
+    mockArtisans.filter((a) => a.status === "active")
+  )
+  const [loading, setLoading] = useState(true)
   const [selectedTrades, setSelectedTrades] = useState<string[]>(
     initialTrade ? [initialTrade] : []
   )
@@ -33,8 +38,25 @@ function ArtisansContent() {
   const [sortBy, setSortBy] = useState<"rating" | "name" | "recent">("rating")
   const [showFilters, setShowFilters] = useState(false)
 
+  useEffect(() => {
+    const load = async () => {
+      if (isSupabaseConfigured()) {
+        try {
+          const data = await fetchActiveArtisans()
+          if (data && data.length > 0) {
+            setAllArtisans(data)
+          }
+        } catch (error) {
+          console.error("Error fetching artisans:", error)
+        }
+      }
+      setLoading(false)
+    }
+    load()
+  }, [])
+
   const filteredArtisans = useMemo(() => {
-    let result = artisans.filter((a) => a.status === "active")
+    let result = [...allArtisans]
 
     if (selectedTrades.length > 0) {
       result = result.filter((a) =>
@@ -69,7 +91,7 @@ function ArtisansContent() {
     }
 
     return result
-  }, [selectedTrades, cityFilter, minRating, sortBy])
+  }, [allArtisans, selectedTrades, cityFilter, minRating, sortBy])
 
   const toggleTrade = (tradeId: string) => {
     setSelectedTrades((prev) =>
@@ -141,8 +163,8 @@ function ArtisansContent() {
                 <h4 className="text-sm font-semibold text-gray-700 mb-3">M&eacute;tier</h4>
                 <div className="space-y-2">
                   {TRADES.map((trade) => {
-                    const count = artisans.filter(
-                      (a) => a.status === "active" && a.trades.includes(trade.id)
+                    const count = allArtisans.filter(
+                      (a) => a.trades.includes(trade.id)
                     ).length
                     return (
                       <label
@@ -207,7 +229,7 @@ function ArtisansContent() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h1 className="text-2xl font-heading font-bold text-gray-900">
-                  {filteredArtisans.length} artisan{filteredArtisans.length > 1 ? "s" : ""} trouv&eacute;{filteredArtisans.length > 1 ? "s" : ""}
+                  {loading ? "Chargement..." : `${filteredArtisans.length} artisan${filteredArtisans.length > 1 ? "s" : ""} trouv\u00e9${filteredArtisans.length > 1 ? "s" : ""}`}
                 </h1>
                 {hasActiveFilters && (
                   <div className="flex flex-wrap gap-2 mt-2">
@@ -262,7 +284,11 @@ function ArtisansContent() {
             </div>
 
             {/* Grid */}
-            {filteredArtisans.length > 0 ? (
+            {loading ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+              </div>
+            ) : filteredArtisans.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredArtisans.map((artisan, index) => (
                   <ArtisanCard key={artisan.id} artisan={artisan} index={index} />
