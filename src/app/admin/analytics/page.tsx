@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge"
 import { isSupabaseConfigured, fetchAllArtisans } from "@/lib/supabase"
 import { fetchAnalyticsSummary, type ArtisanEventCount } from "@/lib/analytics"
 import { artisans as mockArtisans } from "@/data/artisans"
+import { getArtisanUrl } from "@/lib/utils"
 import type { Artisan } from "@/types/artisan"
 
 type Period = "7d" | "30d" | "all"
@@ -321,7 +322,7 @@ export default function AdminAnalyticsPage() {
                               </Badge>
                             </td>
                             <td className="text-right py-3 px-2">
-                              <Link href={`/artisan/${row.id}`}>
+                              <Link href={getArtisanUrl(row.id)}>
                                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                                   <ArrowRight className="w-4 h-4" />
                                 </Button>
