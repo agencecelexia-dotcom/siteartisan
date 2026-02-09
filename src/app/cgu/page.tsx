@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Conditions G\u00e9n\u00e9rales d'Utilisation | SiteArtisan",
-  description: "CGU de SiteArtisan, annuaire gratuit d'artisans en France.",
+  title: "Conditions G\u00e9n\u00e9rales d'Utilisation | ArtisansFrance.fr",
+  description: "CGU de ArtisansFrance.fr, annuaire gratuit d'artisans en France.",
 }
 
 export default function CGUPage() {

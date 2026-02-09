@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Mentions l\u00e9gales | SiteArtisan",
-  description: "Mentions l\u00e9gales du site SiteArtisan, annuaire d'artisans en France.",
+  title: "Mentions l\u00e9gales | ArtisansFrance.fr",
+  description: "Mentions l\u00e9gales du site ArtisansFrance.fr, annuaire d'artisans en France.",
 }
 
 export default function MentionsLegalesPage() {
@@ -23,8 +23,8 @@ export default function MentionsLegalesPage() {
                 Le site <strong>SiteArtisan</strong> (ci-apr&egrave;s &laquo; le Site &raquo;) est &eacute;dit&eacute; par :<br />
                 SiteArtisan<br />
                 Adresse : France m&eacute;tropolitaine<br />
-                Email : contact@siteartisan.fr<br />
-                T&eacute;l&eacute;phone : 01 23 45 67 89
+                Email : contact.artisansfrance@gmail.com<br />
+                T&eacute;l&eacute;phone : 07 69 13 61 82
               </p>
             </div>
 

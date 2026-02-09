@@ -1,6 +1,6 @@
 import React from "react"
 import Link from "next/link"
-import { Search, Phone, Mail, MapPin } from "lucide-react"
+import { Phone, Mail, MapPin } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -9,13 +9,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-9 h-9 bg-gradient-to-br from-primary to-primary-400 rounded-lg flex items-center justify-center">
-                <Search className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-lg font-heading font-bold text-white">
-                SiteArtisan
-              </span>
+            <Link href="/">
+              <img
+                src="/logo.png"
+                alt="ArtisansFrance.fr - Annuaire des artisans"
+                className="h-10 w-auto brightness-0 invert"
+              />
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed">
               L&apos;annuaire de r&eacute;f&eacute;rence pour trouver les meilleurs artisans pr&egrave;s de chez vous.
@@ -56,11 +55,11 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-gray-400">
                 <Phone className="w-4 h-4 text-primary-400" />
-                01 23 45 67 89
+                07 69 13 61 82
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-400">
                 <Mail className="w-4 h-4 text-primary-400" />
-                contact@siteartisan.fr
+                contact.artisansfrance@gmail.com
               </li>
               <li className="flex items-start gap-2 text-sm text-gray-400">
                 <MapPin className="w-4 h-4 text-primary-400 mt-0.5" />
@@ -73,7 +72,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} SiteArtisan. Tous droits r&eacute;serv&eacute;s.
+            &copy; {new Date().getFullYear()} ArtisansFrance.fr. Tous droits r&eacute;serv&eacute;s.
           </p>
           <div className="flex flex-wrap gap-4 sm:gap-6">
             <Link href="/mentions-legales" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">

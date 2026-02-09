@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialit\u00e9 | SiteArtisan",
-  description: "Politique de confidentialit\u00e9 et protection des donn\u00e9es personnelles de SiteArtisan.",
+  title: "Politique de confidentialit\u00e9 | ArtisansFrance.fr",
+  description: "Politique de confidentialit\u00e9 et protection des donn\u00e9es personnelles de ArtisansFrance.fr.",
 }
 
 export default function PolitiqueConfidentialitePage() {
@@ -75,7 +75,7 @@ export default function PolitiqueConfidentialitePage() {
                 <li><strong>Droit d&apos;opposition</strong> : vous opposer au traitement de vos donn&eacute;es</li>
               </ul>
               <p className="mt-3">
-                Pour exercer vos droits, contactez-nous &agrave; : <strong>contact@siteartisan.fr</strong>
+                Pour exercer vos droits, contactez-nous &agrave; : <strong>contact.artisansfrance@gmail.com</strong>
               </p>
             </div>
 
@@ -92,8 +92,8 @@ export default function PolitiqueConfidentialitePage() {
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Contact</h2>
               <p>
                 Pour toute question relative &agrave; cette politique, contactez-nous :<br />
-                Email : contact@siteartisan.fr<br />
-                T&eacute;l&eacute;phone : 01 23 45 67 89
+                Email : contact.artisansfrance@gmail.com<br />
+                T&eacute;l&eacute;phone : 07 69 13 61 82
               </p>
             </div>
           </div>

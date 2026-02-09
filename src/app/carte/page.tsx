@@ -14,7 +14,7 @@ const ArtisanMapWithList = dynamic(() => import("@/components/ArtisanMapWithList
 })
 
 export const metadata: Metadata = {
-  title: "Carte des artisans | SiteArtisan",
+  title: "Carte des artisans | ArtisansFrance.fr",
   description: "Découvrez tous nos artisans sur une carte interactive",
 }
 

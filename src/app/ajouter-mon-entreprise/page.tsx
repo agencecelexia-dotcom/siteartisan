@@ -131,8 +131,8 @@ export default function AjouterEntreprisePage() {
 
               <div className="space-y-4">
                 {[
-                  { icon: Phone, label: "T\u00e9l\u00e9phone", value: "01 23 45 67 89", href: "tel:0123456789" },
-                  { icon: Mail, label: "Email", value: "contact@siteartisan.fr", href: "mailto:contact@siteartisan.fr" },
+                  { icon: Phone, label: "T\u00e9l\u00e9phone", value: "07 69 13 61 82", href: "tel:0769136182" },
+                  { icon: Mail, label: "Email", value: "contact.artisansfrance@gmail.com", href: "mailto:contact.artisansfrance@gmail.com" },
                   { icon: MapPin, label: "Zone", value: "France m\u00e9tropolitaine", href: "#" },
                 ].map((item) => (
                   <a

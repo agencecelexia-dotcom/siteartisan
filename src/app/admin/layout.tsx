@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
-  LayoutDashboard, Users, Plus, Settings, LogOut, Menu, X, Search, Lock
+  LayoutDashboard, Users, Plus, Settings, LogOut, Menu, X, Lock
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -73,7 +73,7 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
         </form>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          SiteArtisan — Panneau d&apos;administration
+          ArtisansFrance.fr — Panneau d&apos;administration
         </p>
       </div>
     </div>
@@ -125,9 +125,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Logo */}
         <div className="h-16 flex items-center px-6 border-b border-gray-100">
           <Link href="/admin" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-400 rounded-lg flex items-center justify-center">
-              <Search className="w-4 h-4 text-white" />
-            </div>
+            <img src="/logo.png" alt="ArtisansFrance.fr" className="h-8 w-auto" />
             <span className="font-heading font-bold text-gray-900">Admin</span>
           </Link>
         </div>

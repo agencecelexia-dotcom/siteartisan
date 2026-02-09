@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
-import { Menu, X, Search, Plus } from "lucide-react"
+import { Menu, X, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -21,18 +21,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 bg-gradient-to-br from-primary to-primary-700 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-              <Search className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-heading font-bold text-foreground leading-tight">
-                SiteArtisan
-              </span>
-              <span className="text-[10px] text-muted-foreground leading-tight hidden sm:block">
-                Annuaire des artisans
-              </span>
-            </div>
+          <Link href="/" className="group">
+            <img
+              src="/logo.png"
+              alt="ArtisansFrance.fr - Annuaire des artisans"
+              className="h-10 sm:h-12 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
