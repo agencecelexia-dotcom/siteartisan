@@ -25,7 +25,7 @@ export default function Header() {
             <img
               src="/logo.png"
               alt="ArtisansFrance.fr - Annuaire des artisans"
-              className="h-10 sm:h-12 w-auto"
+              className="h-10 sm:h-11 md:h-12 lg:h-14 w-auto"
             />
           </Link>
 
