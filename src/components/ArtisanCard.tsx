@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import StarRating from "@/components/StarRating"
 import { Artisan } from "@/types/artisan"
-import { formatPhone } from "@/lib/utils"
+import { formatPhone, getArtisanUrl } from "@/lib/utils"
 import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
 
 interface ArtisanCardProps {
@@ -23,7 +23,7 @@ export default function ArtisanCard({ artisan, index = 0 }: ArtisanCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
     >
-      <Link href={`/artisan/${artisan.id}`}>
+      <Link href={getArtisanUrl(artisan.id)}>
         <Card className="group overflow-hidden cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
           {/* Image */}
           <div className="relative h-48 overflow-hidden bg-gray-100">

@@ -62,6 +62,21 @@ export function getTradeEmoji(trade: string): string {
   return emojis[trade.toLowerCase()] || "\u{1F528}"
 }
 
+/** Check if an ID is a Supabase UUID (not a mock artisan slug) */
+function isUUID(id: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
+}
+
+/** Get the correct URL for an artisan detail page */
+export function getArtisanUrl(id: string): string {
+  return isUUID(id) ? `/artisan/view/?id=${id}` : `/artisan/${id}`
+}
+
+/** Get the correct URL for admin artisan edit page */
+export function getAdminEditUrl(id: string): string {
+  return isUUID(id) ? `/admin/artisans/edit/?id=${id}` : `/admin/artisans/${id}`
+}
+
 export function generateStars(rating: number): string[] {
   const stars: string[] = []
   for (let i = 1; i <= 5; i++) {

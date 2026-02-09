@@ -10,7 +10,7 @@ import { Card } from "@/components/ui/card"
 import StarRating from "@/components/StarRating"
 import { artisans as mockArtisans } from "@/data/artisans"
 import { Artisan, Trade, TRADES } from "@/types/artisan"
-import { cn } from "@/lib/utils"
+import { cn, getAdminEditUrl } from "@/lib/utils"
 import { tradeBadgeVariant, tradeLabel } from "@/lib/constants"
 import { isSupabaseConfigured, fetchAllArtisans, deleteArtisan } from "@/lib/supabase"
 
@@ -237,7 +237,7 @@ export default function AdminArtisansPage() {
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center justify-end gap-1">
-                      <Link href={`/admin/artisans/${artisan.id}`}>
+                      <Link href={getAdminEditUrl(artisan.id)}>
                         <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-primary">
                           <Edit className="w-4 h-4" />
                         </Button>

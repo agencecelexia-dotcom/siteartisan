@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { artisans as mockArtisans } from "@/data/artisans"
 import { Artisan, TRADES, Trade } from "@/types/artisan"
 import { tradeBadgeVariant } from "@/lib/constants"
+import { getAdminEditUrl } from "@/lib/utils"
 import { isSupabaseConfigured, fetchAllArtisans } from "@/lib/supabase"
 
 const tradeIcons: Record<Trade, React.ReactNode> = {
@@ -223,7 +224,7 @@ export default function AdminDashboard() {
             {recentArtisans.map((artisan) => (
               <Link
                 key={artisan.id}
-                href={`/admin/artisans/${artisan.id}`}
+                href={getAdminEditUrl(artisan.id)}
                 className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors"
               >
                 {artisan.profilePhoto ? (

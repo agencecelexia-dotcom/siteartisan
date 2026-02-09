@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/artisan/:id/",
+      "destination": "/artisan/view/?id=:id"
+    },
+    {
+      "source": "/admin/artisans/:id/",
+      "destination": "/admin/artisans/edit/?id=:id"
+    }
+  ]
+}
