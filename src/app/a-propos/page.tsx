@@ -32,7 +32,7 @@ export default function AProposPage() {
               L&apos;annuaire qui change les r&egrave;gles du jeu
             </h1>
             <p className="text-blue-100 mt-6 max-w-3xl mx-auto text-lg leading-relaxed">
-              SiteArtisan est n&eacute; d&apos;un constat simple : les annuaires d&apos;artisans en France sont d&eacute;pass&eacute;s,
+              ArtisansFrance.fr est n&eacute; d&apos;un constat simple : les annuaires d&apos;artisans en France sont d&eacute;pass&eacute;s,
               payants et peu utiles. On a d&eacute;cid&eacute; de faire mieux. Gratuitement.
             </p>
           </motion.div>
@@ -44,7 +44,7 @@ export default function AProposPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeIn} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900">
-              Pourquoi SiteArtisan existe ?
+              Pourquoi ArtisansFrance.fr existe ?
             </h2>
           </motion.div>
 
@@ -60,7 +60,7 @@ export default function AProposPage() {
               R&eacute;sultat : le premier r&eacute;sultat n&apos;est pas le meilleur, c&apos;est celui qui a pay&eacute; le plus.
             </p>
             <p>
-              <strong className="text-gray-900">SiteArtisan renverse ce mod&egrave;le.</strong> Chez nous,
+              <strong className="text-gray-900">ArtisansFrance.fr renverse ce mod&egrave;le.</strong> Chez nous,
               la visibilit&eacute; est gratuite et bas&eacute;e sur la qualit&eacute; r&eacute;elle : avis clients, certifications,
               r&eacute;activit&eacute;. Pas sur un ch&egrave;que.
             </p>
@@ -73,14 +73,14 @@ export default function AProposPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeIn} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900">
-              Annuaires classiques vs SiteArtisan
+              Annuaires classiques vs ArtisansFrance.fr
             </h2>
             <p className="text-gray-500 mt-3">
               Pourquoi les anciens mod&egrave;les ne fonctionnent plus
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {/* Ancien modele */}
             <motion.div {...fadeIn} className="p-8 rounded-2xl bg-white border-2 border-red-100 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
@@ -106,13 +106,13 @@ export default function AProposPage() {
               </ul>
             </motion.div>
 
-            {/* SiteArtisan */}
+            {/* ArtisansFrance.fr */}
             <motion.div {...fadeIn} className="p-8 rounded-2xl bg-white border-2 border-green-100 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
                   <CheckCircle className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-heading font-bold text-gray-900">SiteArtisan</h3>
+                <h3 className="text-lg font-heading font-bold text-gray-900">ArtisansFrance.fr</h3>
               </div>
               <ul className="space-y-3">
                 {[
@@ -143,7 +143,7 @@ export default function AProposPage() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {[
               { icon: Shield, title: "V\u00e9rification", description: "Chaque artisan est v\u00e9rifi\u00e9 : assurances, certifications, qualit\u00e9 de travail.", color: "bg-blue-100 text-blue-600" },
               { icon: Users, title: "Communaut\u00e9", description: "Un r\u00e9seau de professionnels recommand\u00e9s par leurs pairs et leurs clients.", color: "bg-green-100 text-green-600" },
@@ -177,7 +177,7 @@ export default function AProposPage() {
               Questions fr&eacute;quentes
             </h2>
             <p className="text-gray-500 mt-3">
-              Tout ce que vous devez savoir sur SiteArtisan
+              Tout ce que vous devez savoir sur ArtisansFrance.fr
             </p>
           </motion.div>
 
@@ -185,11 +185,11 @@ export default function AProposPage() {
             {[
               {
                 question: "Pourquoi ce site existe ?",
-                answer: "Parce que trouver un bon artisan en France ne devrait pas \u00eatre un parcours du combattant. Les annuaires existants sont payants, peu fiables et mal r\u00e9f\u00e9renc\u00e9s. SiteArtisan a \u00e9t\u00e9 cr\u00e9\u00e9 pour offrir une alternative moderne, gratuite et transparente.",
+                answer: "Parce que trouver un bon artisan en France ne devrait pas \u00eatre un parcours du combattant. Les annuaires existants sont payants, peu fiables et mal r\u00e9f\u00e9renc\u00e9s. ArtisansFrance.fr a \u00e9t\u00e9 cr\u00e9\u00e9 pour offrir une alternative moderne, gratuite et transparente.",
               },
               {
-                question: "En quoi SiteArtisan est diff\u00e9rent des autres annuaires ?",
-                answer: "Contrairement aux annuaires classiques qui font payer les artisans pour \u00eatre visibles, SiteArtisan est enti\u00e8rement gratuit. Le classement est bas\u00e9 sur la qualit\u00e9 r\u00e9elle (avis, certifications), pas sur le budget publicitaire. Le site est moderne, rapide et optimis\u00e9 pour le mobile.",
+                question: "En quoi ArtisansFrance.fr est diff\u00e9rent des autres annuaires ?",
+                answer: "Contrairement aux annuaires classiques qui font payer les artisans pour \u00eatre visibles, ArtisansFrance.fr est enti\u00e8rement gratuit. Le classement est bas\u00e9 sur la qualit\u00e9 r\u00e9elle (avis, certifications), pas sur le budget publicitaire. Le site est moderne, rapide et optimis\u00e9 pour le mobile.",
               },
               {
                 question: "Est-ce vraiment gratuit ?",
@@ -205,7 +205,7 @@ export default function AProposPage() {
               },
               {
                 question: "Pourquoi Google va mieux r\u00e9f\u00e9rencer ce site ?",
-                answer: "SiteArtisan est construit selon les standards modernes du web : architecture Next.js optimis\u00e9e, temps de chargement ultra-rapide, contenu structur\u00e9 (H1, H2, H3, FAQ), responsive mobile-first, donn\u00e9es structur\u00e9es. Google privil\u00e9gie les sites rapides, utiles et bien structur\u00e9s \u2014 c\u2019est exactement notre ADN.",
+                answer: "ArtisansFrance.fr est construit selon les standards modernes du web : architecture Next.js optimis\u00e9e, temps de chargement ultra-rapide, contenu structur\u00e9 (H1, H2, H3, FAQ), responsive mobile-first, donn\u00e9es structur\u00e9es. Google privil\u00e9gie les sites rapides, utiles et bien structur\u00e9s \u2014 c\u2019est exactement notre ADN.",
               },
             ].map((faq, i) => (
               <motion.div
@@ -234,7 +234,7 @@ export default function AProposPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             {...fadeIn}
-            className="relative overflow-hidden rounded-3xl gradient-hero text-white p-10 md:p-16 text-center"
+            className="relative overflow-hidden rounded-3xl gradient-hero text-white p-6 sm:p-10 md:p-16 text-center"
           >
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-10 right-20 w-64 h-64 bg-white rounded-full blur-3xl" />
@@ -245,7 +245,7 @@ export default function AProposPage() {
                 Vous &ecirc;tes artisan ?
               </h2>
               <p className="text-blue-100 mt-4 max-w-xl mx-auto text-lg">
-                Rejoignez SiteArtisan gratuitement et gagnez en visibilit&eacute;.
+                Rejoignez ArtisansFrance.fr gratuitement et gagnez en visibilit&eacute;.
                 Votre fiche sera visible par des milliers de particuliers et index&eacute;e sur Google.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">

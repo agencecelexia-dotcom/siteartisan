@@ -67,7 +67,7 @@ export default function AjouterEntreprisePage() {
               Ajoutez votre entreprise gratuitement
             </h1>
             <p className="text-blue-100 mt-4 max-w-2xl mx-auto text-lg">
-              Rejoignez l&apos;annuaire SiteArtisan et gagnez en visibilit&eacute; aupr&egrave;s de clients qualifi&eacute;s.
+              Rejoignez l&apos;annuaire ArtisansFrance.fr et gagnez en visibilit&eacute; aupr&egrave;s de clients qualifi&eacute;s.
               Inscription gratuite, sans engagement.
             </p>
           </motion.div>
@@ -77,7 +77,7 @@ export default function AjouterEntreprisePage() {
       {/* Avantages */}
       <section className="py-12 bg-gray-50/50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {[
               { icon: Star, title: "Visibilit\u00e9 accrue", description: "Votre fiche visible par des milliers de particuliers", color: "bg-amber-100 text-amber-600" },
               { icon: TrendingUp, title: "R\u00e9f\u00e9rencement SEO", description: "Votre entreprise index\u00e9e sur Google naturellement", color: "bg-green-100 text-green-600" },
@@ -155,7 +155,7 @@ export default function AjouterEntreprisePage() {
             {/* Form */}
             <div className="lg:col-span-3">
               <Card className="shadow-md">
-                <CardContent className="p-8">
+                <CardContent className="p-5 sm:p-6 md:p-8">
                   {submitted ? (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.9 }}

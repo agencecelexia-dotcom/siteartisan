@@ -20,7 +20,7 @@ export default function PolitiqueConfidentialitePage() {
             <div>
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Introduction</h2>
               <p>
-                SiteArtisan s&apos;engage &agrave; prot&eacute;ger la vie priv&eacute;e de ses utilisateurs.
+                ArtisansFrance.fr s&apos;engage &agrave; prot&eacute;ger la vie priv&eacute;e de ses utilisateurs.
                 Cette politique de confidentialit&eacute; d&eacute;crit les donn&eacute;es que nous collectons,
                 comment nous les utilisons et vos droits en mati&egrave;re de protection des donn&eacute;es,
                 conform&eacute;ment au R&egrave;glement G&eacute;n&eacute;ral sur la Protection des Donn&eacute;es (RGPD).

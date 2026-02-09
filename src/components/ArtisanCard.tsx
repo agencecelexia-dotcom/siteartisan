@@ -26,7 +26,7 @@ export default function ArtisanCard({ artisan, index = 0 }: ArtisanCardProps) {
       <Link href={getArtisanUrl(artisan.id)}>
         <Card className="group overflow-hidden cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
           {/* Image */}
-          <div className="relative h-48 overflow-hidden bg-gray-100">
+          <div className="relative h-40 sm:h-48 overflow-hidden bg-gray-100">
             <img
               src={artisan.coverPhoto || artisan.profilePhoto}
               alt={`Photo de couverture de ${artisan.businessName} - ${artisan.trades.map(t => tradeLabel[t]).join(', ')} à ${artisan.city}`}
@@ -67,7 +67,7 @@ export default function ArtisanCard({ artisan, index = 0 }: ArtisanCardProps) {
           </div>
 
           {/* Content */}
-          <div className="p-5 pt-8">
+          <div className="p-4 sm:p-5 pt-8">
             <h3 className="font-heading font-bold text-lg text-gray-900 group-hover:text-primary transition-colors">
               {artisan.businessName}
             </h3>

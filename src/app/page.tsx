@@ -25,7 +25,7 @@ export default function HomePage() {
           <div className="absolute top-40 right-40 w-48 h-48 bg-white rounded-full blur-2xl" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 md:py-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -191,14 +191,14 @@ export default function HomePage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900">
-              Pourquoi SiteArtisan ?
+              Pourquoi ArtisansFrance.fr ?
             </h2>
             <p className="text-gray-500 mt-3 max-w-xl mx-auto">
               Nous s&eacute;lectionnons les meilleurs artisans pour vous garantir un service de qualit&eacute;
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 icon: Shield,
@@ -260,23 +260,23 @@ export default function HomePage() {
             {[
               {
                 question: "Comment trouver un bon artisan pr\u00e8s de chez moi ?",
-                answer: "Utilisez SiteArtisan pour rechercher par m\u00e9tier et par ville. Chaque artisan dispose d\u2019une fiche compl\u00e8te avec ses certifications, avis clients et zone d\u2019intervention. Vous pouvez aussi explorer la carte interactive pour d\u00e9couvrir les artisans autour de vous.",
+                answer: "Utilisez ArtisansFrance.fr pour rechercher par m\u00e9tier et par ville. Chaque artisan dispose d\u2019une fiche compl\u00e8te avec ses certifications, avis clients et zone d\u2019intervention. Vous pouvez aussi explorer la carte interactive pour d\u00e9couvrir les artisans autour de vous.",
               },
               {
                 question: "Comment choisir entre un plombier, \u00e9lectricien ou paysagiste ?",
                 answer: "Comparez les fiches artisans : v\u00e9rifiez les certifications (RGE, Qualibat, Qualifelec), lisez les avis clients, et regardez le portfolio de r\u00e9alisations. Un artisan certifi\u00e9 avec de bons avis est g\u00e9n\u00e9ralement un choix s\u00fbr.",
               },
               {
-                question: "L\u2019annuaire SiteArtisan est-il vraiment gratuit ?",
-                answer: "Oui, SiteArtisan est 100% gratuit pour les particuliers comme pour les artisans. Contrairement aux annuaires traditionnels, nous ne faisons pas payer la visibilit\u00e9. Le classement est bas\u00e9 sur la qualit\u00e9 r\u00e9elle, pas sur un budget publicitaire.",
+                question: "L\u2019annuaire ArtisansFrance.fr est-il vraiment gratuit ?",
+                answer: "Oui, ArtisansFrance.fr est 100% gratuit pour les particuliers comme pour les artisans. Contrairement aux annuaires traditionnels, nous ne faisons pas payer la visibilit\u00e9. Le classement est bas\u00e9 sur la qualit\u00e9 r\u00e9elle, pas sur un budget publicitaire.",
               },
               {
                 question: "Quelle diff\u00e9rence entre un annuaire gratuit et payant ?",
-                answer: "Les annuaires payants font payer les artisans pour appara\u00eetre en t\u00eate de liste. Cela ne garantit pas la qualit\u00e9. SiteArtisan est gratuit et classe les artisans selon leurs avis, certifications et qualit\u00e9 de service r\u00e9elle.",
+                answer: "Les annuaires payants font payer les artisans pour appara\u00eetre en t\u00eate de liste. Cela ne garantit pas la qualit\u00e9. ArtisansFrance.fr est gratuit et classe les artisans selon leurs avis, certifications et qualit\u00e9 de service r\u00e9elle.",
               },
               {
                 question: "Comment r\u00e9f\u00e9rencer mon entreprise gratuitement sur Google ?",
-                answer: "En vous inscrivant sur SiteArtisan, votre fiche artisan est automatiquement index\u00e9e par Google. Notre site est optimis\u00e9 SEO : chaque fiche g\u00e9n\u00e8re une page d\u00e9di\u00e9e avec votre nom, m\u00e9tier, ville et avis. C\u2019est du r\u00e9f\u00e9rencement naturel gratuit.",
+                answer: "En vous inscrivant sur ArtisansFrance.fr, votre fiche artisan est automatiquement index\u00e9e par Google. Notre site est optimis\u00e9 SEO : chaque fiche g\u00e9n\u00e8re une page d\u00e9di\u00e9e avec votre nom, m\u00e9tier, ville et avis. C\u2019est du r\u00e9f\u00e9rencement naturel gratuit.",
               },
             ].map((faq, i) => (
               <motion.div
@@ -296,7 +296,7 @@ export default function HomePage() {
           <div className="mt-10 text-center">
             <Link href="/a-propos">
               <Button variant="outline" size="lg" className="gap-2">
-                En savoir plus sur SiteArtisan
+                En savoir plus sur ArtisansFrance.fr
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
@@ -314,11 +314,11 @@ export default function HomePage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900">
-              Toutes vos questions sur les artisans et SiteArtisan
+              Toutes vos questions sur les artisans et ArtisansFrance.fr
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {/* Questions Utilisateurs */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -331,10 +331,10 @@ export default function HomePage() {
               </h3>
               {[
                 { q: "Quels sont les labels et certifications important pour un artisan ?", a: "RGE (éco-responsable), Qualibat (bâtiment), Qualifelec (électricité), IRVE (bornes recharge), UNEP (paysage) garantissent la qualité et l'assurance." },
-                { q: "Comment vérifier les avis clients d'un artisan ?", a: "Sur SiteArtisan, chaque avis est authentique. Les évaluations doivent être justifiées et vérifiées pour garantir leur fiabilité." },
-                { q: "Un artisan certifié coûte-t-il forcément plus cher ?", a: "Non, la certification garantit la qualité et l'assurance, mais les prix restent compétitifs. Comparez plusieurs offres sur SiteArtisan." },
-                { q: "Comment trouver un artisan d'urgence le dimanche ?", a: "Utilisez SiteArtisan pour filtrer les artisans avec horaires spéciaux. Beaucoup proposent des interventions d'urgence 24/7." },
-                { q: "Comment être sûr qu'un artisan est assuré ?", a: "Demandez sa RC Pro (responsabilité civile) et sa garantie décennale. Tous les artisans de SiteArtisan sont vérifiés sur ce point." },
+                { q: "Comment vérifier les avis clients d'un artisan ?", a: "Sur ArtisansFrance.fr, chaque avis est authentique. Les évaluations doivent être justifiées et vérifiées pour garantir leur fiabilité." },
+                { q: "Un artisan certifié coûte-t-il forcément plus cher ?", a: "Non, la certification garantit la qualité et l'assurance, mais les prix restent compétitifs. Comparez plusieurs offres sur ArtisansFrance.fr." },
+                { q: "Comment trouver un artisan d'urgence le dimanche ?", a: "Utilisez ArtisansFrance.fr pour filtrer les artisans avec horaires spéciaux. Beaucoup proposent des interventions d'urgence 24/7." },
+                { q: "Comment être sûr qu'un artisan est assuré ?", a: "Demandez sa RC Pro (responsabilité civile) et sa garantie décennale. Tous les artisans de ArtisansFrance.fr sont vérifiés sur ce point." },
               ].map((item, i) => (
                 <motion.div
                   key={i}
@@ -361,11 +361,11 @@ export default function HomePage() {
                 🔨 Vous êtes artisan ?
               </h3>
               {[
-                { q: "Comment attirer plus de clients sur SiteArtisan ?", a: "Une fiche complète avec photos de qualité, avis positifs et certifications boost votre visibilité. Le classement est basé sur la qualité, pas sur le paiement." },
-                { q: "SiteArtisan aide-t-il vraiment à trouver des clients ?", a: "Oui ! Chaque fiche est indexée sur Google et visible par des milliers de particuliers. Vous reçoivent des demandes de devis qualifiées." },
+                { q: "Comment attirer plus de clients sur ArtisansFrance.fr ?", a: "Une fiche complète avec photos de qualité, avis positifs et certifications boost votre visibilité. Le classement est basé sur la qualité, pas sur le paiement." },
+                { q: "ArtisansFrance.fr aide-t-il vraiment à trouver des clients ?", a: "Oui ! Chaque fiche est indexée sur Google et visible par des milliers de particuliers. Vous reçoivent des demandes de devis qualifiées." },
                 { q: "Comment faire pour être mieux classé que les concurrents ?", a: "Augmentez vos avis clients, complétez votre portfolio, maintenez vos certifications à jour. Les meilleurs artisans sont naturellement mieux classés." },
-                { q: "Puis-je gérer ma fiche moi-même sur SiteArtisan ?", a: "Oui, après validation initiale. Vous pouvez ajouter des photos, mettre à jour votre zone d'intervention et répondre aux avis clients directement." },
-                { q: "Combien ça coûte d'être sur SiteArtisan ?", a: "C'est gratuit ! Pas de frais d'inscription, pas d'abonnement mensuel, pas de coûts cachés. SiteArtisan croit en la transparence." },
+                { q: "Puis-je gérer ma fiche moi-même sur ArtisansFrance.fr ?", a: "Oui, après validation initiale. Vous pouvez ajouter des photos, mettre à jour votre zone d'intervention et répondre aux avis clients directement." },
+                { q: "Combien ça coûte d'être sur ArtisansFrance.fr ?", a: "C'est gratuit ! Pas de frais d'inscription, pas d'abonnement mensuel, pas de coûts cachés. ArtisansFrance.fr croit en la transparence." },
               ].map((item, i) => (
                 <motion.div
                   key={i}
@@ -392,7 +392,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="relative overflow-hidden rounded-3xl gradient-hero text-white p-10 md:p-16 text-center"
+            className="relative overflow-hidden rounded-3xl gradient-hero text-white p-6 sm:p-10 md:p-16 text-center"
           >
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-10 right-20 w-64 h-64 bg-white rounded-full blur-3xl" />

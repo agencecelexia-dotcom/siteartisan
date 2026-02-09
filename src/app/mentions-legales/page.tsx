@@ -20,8 +20,8 @@ export default function MentionsLegalesPage() {
             <div>
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">&Eacute;diteur du site</h2>
               <p>
-                Le site <strong>SiteArtisan</strong> (ci-apr&egrave;s &laquo; le Site &raquo;) est &eacute;dit&eacute; par :<br />
-                SiteArtisan<br />
+                Le site <strong>ArtisansFrance.fr</strong> (ci-apr&egrave;s &laquo; le Site &raquo;) est &eacute;dit&eacute; par :<br />
+                ArtisansFrance.fr<br />
                 Adresse : France m&eacute;tropolitaine<br />
                 Email : contact.artisansfrance@gmail.com<br />
                 T&eacute;l&eacute;phone : 07 69 13 61 82
@@ -30,7 +30,7 @@ export default function MentionsLegalesPage() {
 
             <div>
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Directeur de la publication</h2>
-              <p>Le directeur de la publication est le repr&eacute;sentant l&eacute;gal de SiteArtisan.</p>
+              <p>Le directeur de la publication est le repr&eacute;sentant l&eacute;gal de ArtisansFrance.fr.</p>
             </div>
 
             <div>
@@ -55,8 +55,8 @@ export default function MentionsLegalesPage() {
             <div>
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Limitation de responsabilit&eacute;</h2>
               <p>
-                SiteArtisan met tout en &oelig;uvre pour assurer l&apos;exactitude des informations publi&eacute;es.
-                Toutefois, SiteArtisan ne peut garantir l&apos;exactitude, la compl&eacute;tude ou l&apos;actualit&eacute;
+                ArtisansFrance.fr met tout en &oelig;uvre pour assurer l&apos;exactitude des informations publi&eacute;es.
+                Toutefois, ArtisansFrance.fr ne peut garantir l&apos;exactitude, la compl&eacute;tude ou l&apos;actualit&eacute;
                 des informations fournies par les artisans r&eacute;f&eacute;renc&eacute;s.
                 L&apos;utilisateur utilise ces informations sous sa propre responsabilit&eacute;.
               </p>

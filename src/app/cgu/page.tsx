@@ -21,7 +21,7 @@ export default function CGUPage() {
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Article 1 &mdash; Objet</h2>
               <p>
                 Les pr&eacute;sentes Conditions G&eacute;n&eacute;rales d&apos;Utilisation (CGU) r&eacute;gissent l&apos;acc&egrave;s
-                et l&apos;utilisation du site <strong>SiteArtisan</strong>, annuaire en ligne d&apos;artisans.
+                et l&apos;utilisation du site <strong>ArtisansFrance.fr</strong>, annuaire en ligne d&apos;artisans.
                 En utilisant le Site, vous acceptez les pr&eacute;sentes CGU dans leur int&eacute;gralit&eacute;.
               </p>
             </div>
@@ -30,7 +30,7 @@ export default function CGUPage() {
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Article 2 &mdash; Acc&egrave;s au site</h2>
               <p>
                 L&apos;acc&egrave;s au Site est gratuit pour tous les utilisateurs.
-                SiteArtisan se r&eacute;serve le droit de modifier, suspendre ou interrompre
+                ArtisansFrance.fr se r&eacute;serve le droit de modifier, suspendre ou interrompre
                 tout ou partie du Site &agrave; tout moment, sans pr&eacute;avis.
               </p>
             </div>
@@ -38,9 +38,9 @@ export default function CGUPage() {
             <div>
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Article 3 &mdash; Inscription des artisans</h2>
               <p>
-                L&apos;inscription sur l&apos;annuaire est gratuite et soumise &agrave; validation par l&apos;&eacute;quipe SiteArtisan.
+                L&apos;inscription sur l&apos;annuaire est gratuite et soumise &agrave; validation par l&apos;&eacute;quipe ArtisansFrance.fr.
                 L&apos;artisan s&apos;engage &agrave; fournir des informations exactes et &agrave; jour.
-                SiteArtisan se r&eacute;serve le droit de refuser ou supprimer toute fiche
+                ArtisansFrance.fr se r&eacute;serve le droit de refuser ou supprimer toute fiche
                 ne respectant pas les pr&eacute;sentes conditions.
               </p>
             </div>
@@ -59,7 +59,7 @@ export default function CGUPage() {
             <div>
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Article 5 &mdash; Responsabilit&eacute;</h2>
               <p>
-                SiteArtisan agit en tant qu&apos;interm&eacute;diaire et ne peut &ecirc;tre tenu responsable
+                ArtisansFrance.fr agit en tant qu&apos;interm&eacute;diaire et ne peut &ecirc;tre tenu responsable
                 des prestations r&eacute;alis&eacute;es par les artisans r&eacute;f&eacute;renc&eacute;s.
                 Les relations contractuelles entre utilisateurs et artisans sont de leur seule responsabilit&eacute;.
               </p>
@@ -69,7 +69,7 @@ export default function CGUPage() {
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Article 6 &mdash; Propri&eacute;t&eacute; intellectuelle</h2>
               <p>
                 L&apos;ensemble des contenus du Site (textes, images, logos, graphismes)
-                est la propri&eacute;t&eacute; de SiteArtisan ou de ses partenaires.
+                est la propri&eacute;t&eacute; de ArtisansFrance.fr ou de ses partenaires.
                 Toute reproduction sans autorisation est interdite.
               </p>
             </div>
@@ -87,7 +87,7 @@ export default function CGUPage() {
             <div>
               <h2 className="text-xl font-heading font-bold text-gray-900 mb-3">Article 8 &mdash; Modification des CGU</h2>
               <p>
-                SiteArtisan se r&eacute;serve le droit de modifier les pr&eacute;sentes CGU &agrave; tout moment.
+                ArtisansFrance.fr se r&eacute;serve le droit de modifier les pr&eacute;sentes CGU &agrave; tout moment.
                 Les utilisateurs seront inform&eacute;s de toute modification significative.
                 La poursuite de l&apos;utilisation du Site apr&egrave;s modification vaut acceptation des nouvelles CGU.
               </p>

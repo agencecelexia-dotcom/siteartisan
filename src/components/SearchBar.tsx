@@ -41,7 +41,7 @@ export default function SearchBar({ variant = "hero", defaultCity = "", defaultT
           />
         </div>
         <Select value={trade} onValueChange={setTrade}>
-          <SelectTrigger className="w-40 h-10">
+          <SelectTrigger className="w-32 sm:w-40 h-10">
             <SelectValue placeholder="M&eacute;tier" />
           </SelectTrigger>
           <SelectContent>

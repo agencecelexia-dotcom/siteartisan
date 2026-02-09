@@ -75,7 +75,7 @@ export default function ArtisanDetailClient({ id }: { id: string }) {
   return (
     <div className="min-h-screen bg-gray-50/30">
       {/* Cover Image */}
-      <div className="relative h-48 md:h-80 overflow-hidden bg-gray-200">
+      <div className="relative h-40 sm:h-56 md:h-80 overflow-hidden bg-gray-200">
         <img
           src={artisan.coverPhoto}
           alt={`Photo de couverture de ${artisan.businessName} - ${artisan.trades.map(t => tradeLabel[t]).join(', ')} \u00e0 ${artisan.city}`}

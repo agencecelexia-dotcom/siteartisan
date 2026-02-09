@@ -51,11 +51,11 @@ export default function TradeCard({ trade, artisans, index }: TradeCardProps) {
         {/* Header - Clickable */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center gap-5 p-6 text-left group"
+          className="w-full flex items-center gap-3 sm:gap-5 p-4 sm:p-6 text-left group"
         >
           {/* Icon */}
           <div className={cn(
-            "w-16 h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform",
+            "w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform",
             tradeBg[trade.id]
           )}>
             {tradeIcons[trade.icon]}
@@ -63,7 +63,7 @@ export default function TradeCard({ trade, artisans, index }: TradeCardProps) {
 
           {/* Info */}
           <div className="flex-1 min-w-0">
-            <h3 className="text-xl font-heading font-bold text-gray-900">
+            <h3 className="text-lg sm:text-xl font-heading font-bold text-gray-900">
               {trade.emoji} {trade.name}
             </h3>
             <p className="text-sm text-gray-500 mt-0.5">{trade.description}</p>
