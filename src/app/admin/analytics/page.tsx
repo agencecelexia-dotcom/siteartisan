@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { isSupabaseConfigured, fetchAllArtisans } from "@/lib/supabase"
 import { fetchAnalyticsSummary, type ArtisanEventCount } from "@/lib/analytics"
+import { artisans as mockArtisans } from "@/data/artisans"
 import type { Artisan } from "@/types/artisan"
 
 type Period = "7d" | "30d" | "all"
@@ -57,7 +58,14 @@ export default function AdminAnalyticsPage() {
       ])
 
       setSummary(analyticsData)
-      setArtisans(artisansData)
+      // Merge mock artisans + Supabase artisans so all IDs resolve to a name
+      const allArtisans = [...mockArtisans]
+      for (const a of artisansData) {
+        if (!allArtisans.find((m) => m.id === a.id)) {
+          allArtisans.push(a)
+        }
+      }
+      setArtisans(allArtisans)
       setLoading(false)
     }
     load()
